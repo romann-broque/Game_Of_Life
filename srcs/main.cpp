@@ -1,15 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include "Grid.hpp"
 
-void draw_in_window(sf::RenderWindow &window) {
-	// Draw your graphics here
-	Grid mainGrid(window, 40, 21);
-	mainGrid.display();
-}
-
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
+	Grid mainGrid(window, GRID_HEIGHT, GRID_WIDTH);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -18,9 +13,10 @@ int main() {
 				window.close();
 			}
 		}
-		window.clear(); // Clear the window
-		draw_in_window(window);
+		window.clear(sf::Color::Black); // Clear the window
+		mainGrid.display();
 		window.display(); // Display the contents of the window
+		usleep(TICK_TIME);
 	}
 	return 0;
 }

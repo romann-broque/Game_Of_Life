@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/22 22:42:47 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/22 23:19:08 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <cmath>
 #include <vector>
+#include <iostream>
 
 #include "Defines.hpp"
 
@@ -38,4 +39,6 @@ class Grid {
 		const float centerY = (WINDOW_HEIGHT - CELL_SIZE * height) / 2;
 		// Methods
 		void initCellGrid();
+		void updateCell(Cell &cell, const size_t i, const size_t j);
+		std::vector<Cell *> getSurroundingCells(const size_t i, const size_t j);
 };
