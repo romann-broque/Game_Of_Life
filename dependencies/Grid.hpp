@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/22 18:24:52 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/22 22:42:47 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "Cell.hpp"
 #include <unistd.h>
 #include <cmath>
+#include <vector>
 
 #include "Defines.hpp"
 
@@ -28,9 +29,13 @@ class Grid {
 		~Grid();
 
 	private:
+		// Attributes
 		sf::RenderWindow &window;
 		const size_t width;
 		const size_t height;
+		std::vector<std::vector<Cell>> grid;
 		const float centerX = (WINDOW_WIDTH - CELL_SIZE * width) / 2;
 		const float centerY = (WINDOW_HEIGHT - CELL_SIZE * height) / 2;
+		// Methods
+		void initCellGrid();
 };
