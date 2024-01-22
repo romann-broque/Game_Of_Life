@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Grid.hpp                                           :+:      :+:    :+:   */
+/*   Cell.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/22 18:24:52 by rbroque          ###   ########.fr       */
+/*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
+/*   Updated: 2024/01/22 18:14:22 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "Cell.hpp"
-#include <unistd.h>
-#include <cmath>
-
+#include <SFML/Graphics.hpp>
 #include "Defines.hpp"
 
-#define DEFAULT_SIZE 4
+typedef struct sPos {
+	const size_t x;
+	const size_t y;
+}				tPos;
 
-class Grid {
+class Cell {
 	public:
-		Grid(sf::RenderWindow &window);
-		Grid(sf::RenderWindow &window, const size_t width, const size_t height);
-		void display();
-		~Grid();
+		Cell(const size_t x, const size_t y);
+		void setScreenPosition(const float screenX, const float screenY);
+		void setCellColor(const sf::Color color);
+		void draw(sf::RenderWindow &window) const;
+		~Cell();
 
 	private:
-		sf::RenderWindow &window;
-		const size_t width;
-		const size_t height;
-		const float centerX = (WINDOW_WIDTH - CELL_SIZE * width) / 2;
-		const float centerY = (WINDOW_HEIGHT - CELL_SIZE * height) / 2;
+		const float cellSize = CELL_SIZE;
+		tPos pos;
+		sf::RectangleShape cellScreen;
 };

@@ -14,6 +14,7 @@ PATH_SRCS       += srcs/
 
 SRCS    += main.cpp
 SRCS    += Grid.cpp
+SRCS    += Cell.cpp
 
 vpath %.cpp $(PATH_SRCS)
 
@@ -27,6 +28,10 @@ OBJS			+= $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
 ##################
 #### INCLUDES ####
 ##################
+
+HEADERS			+= Cell.hpp
+HEADERS			+= Defines.hpp
+HEADERS			+= Grid.hpp
 
 PATH_INC		+= -I dependencies/
 PATH_INC		+= -I /opt/homebrew/Cellar/sfml/2.6.1/include/

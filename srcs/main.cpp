@@ -3,13 +3,13 @@
 
 void draw_in_window(sf::RenderWindow &window) {
 	// Draw your graphics here
-	Grid mainGrid(window);
+	Grid mainGrid(window, 40, 21);
 	mainGrid.display();
 }
 
 int main() {
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Window");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
 
 	while (window.isOpen()) {
 		sf::Event event;
