@@ -1,4 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include "Grid.hpp"
+
+void draw_in_window(sf::RenderWindow &window) {
+	// Draw your graphics here
+	Grid mainGrid(window);
+	mainGrid.display();
+}
 
 int main() {
 
@@ -12,12 +19,8 @@ int main() {
 			}
 		}
 		window.clear(); // Clear the window
-	// Draw your graphics here
-
-	sf::CircleShape circle(50);
-	circle.setFillColor(sf::Color::Green);
-	window.draw(circle);
-	window.display(); // Display the contents of the window
+		draw_in_window(window);
+		window.display(); // Display the contents of the window
 	}
 	return 0;
 }

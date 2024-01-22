@@ -8,11 +8,12 @@ SHELL   = /bin/bash
 #### SRCS ####
 ##############
 
-PATH_SRCS       += ./
+PATH_SRCS       += srcs/
 
 ### srcs/
 
 SRCS    += main.cpp
+SRCS    += Grid.cpp
 
 vpath %.cpp $(PATH_SRCS)
 
@@ -20,13 +21,14 @@ vpath %.cpp $(PATH_SRCS)
 #### OBJS ####
 ##############
 
-PATH_OBJS       += objs/
-OBJS    += $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
+PATH_OBJS		+= objs/
+OBJS			+= $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
 
 ##################
 #### INCLUDES ####
 ##################
 
+PATH_INC		+= -I dependencies/
 PATH_INC		+= -I /opt/homebrew/Cellar/sfml/2.6.1/include/
 INCLUDES		+= $(PATH_INC)
 
