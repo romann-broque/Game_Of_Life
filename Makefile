@@ -14,8 +14,7 @@ PATH_SRCS       += srcs/
 
 SRCS    += Cell.cpp
 SRCS    += Config.cpp
-SRCS    += EventLoop.cpp
-# SRCS    += KeyHandler.cpp
+SRCS    += KeyHandler.cpp
 SRCS    += Grid.cpp
 SRCS    += main.cpp
 
@@ -35,7 +34,6 @@ OBJS			+= $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
 HEADERS			+= Cell.hpp
 HEADERS			+= Config.hpp
 HEADERS			+= Defines.hpp
-HEADERS			+= EventLoop.hpp
 HEADERS			+= KeyHandler.hpp
 HEADERS			+= Grid.hpp
 
