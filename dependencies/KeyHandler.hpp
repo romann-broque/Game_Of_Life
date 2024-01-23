@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 10:37:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:15:12 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ class KeyHandler {
 		~KeyHandler();
 
 	private:
+		// Attributes
 		sf::RenderWindow& _window;
 		bool _keys[sf::Keyboard::KeyCount];
 		std::map<sf::Keyboard::Key, FunctionType> _keyBindingMap;
+		// Methods
+		void executeFunction(sf::Keyboard::Key &key);
 };

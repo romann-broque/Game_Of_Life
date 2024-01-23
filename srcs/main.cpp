@@ -13,7 +13,7 @@ int main() {
 			window.clear(); // Clear the window
 			mainGrid.display();
 			window.display(); // Display the contents of the window
-			usleep(TICK_TIME);
+			usleep(Config::getTickTime());
 		}
 	}
 	return 0;

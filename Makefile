@@ -56,6 +56,10 @@ CFLAGS  +=      -Wall
 CFLAGS  +=      -Wextra
 CFLAGS  +=      -std=c++11
 
+ifeq ($(analysis), true)
+	CFLAGS	+=		-pg
+endif
+
 ifneq ($(no_error), true)
 CFLAGS  +=      -Werror
 endif
