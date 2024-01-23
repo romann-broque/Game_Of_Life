@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 14:43:25 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:48:05 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ class Grid {
 		const size_t width;
 		const size_t height;
 		std::vector<std::vector<Cell>> grid;
+		std::vector<std::vector<Cell>> grid_temp;
 		const float centerX = (WINDOW_WIDTH - CELL_SIZE * width) / 2;
 		const float centerY = (WINDOW_HEIGHT - CELL_SIZE * height) / 2;
 		// Methods
-		void initCellGrid();
+		void initCellGrids();
 		void updateCell(Cell &cell, const size_t i, const size_t j);
 		std::vector<Cell> getSurroundingLivingCells(const size_t i, const size_t j);
 };

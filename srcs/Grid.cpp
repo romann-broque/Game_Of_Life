@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 15:41:30 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:57:13 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 Grid::Grid(sf::RenderWindow &window):
 	window(window), width(DEFAULT_SIZE),
-	height(DEFAULT_SIZE) { initCellGrid(); }
+	height(DEFAULT_SIZE) { initCellGrids(); }
 
 Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
 	window(window), width(width),
-	height(height) { initCellGrid(); }
+	height(height) { initCellGrids(); }
 
 void Grid::display() {
 	sf::RectangleShape border(sf::Vector2f(width * CELL_SIZE, height * CELL_SIZE));
@@ -29,8 +29,13 @@ void Grid::display() {
 	window.draw(border);
 	for (size_t i = 0; i < height; ++i) {
 		for (size_t j = 0; j < width; ++j) {
+			updateCell(grid_temp[i][j], j, i);
+		}
+	}
+	for (size_t i = 0; i < height; ++i) {
+		for (size_t j = 0; j < width; ++j) {
+			grid[i][j] = grid_temp[i][j];
 			grid[i][j].draw(window);
-			updateCell(grid[i][j], j, i);
 		}
 	}
 }
@@ -39,7 +44,7 @@ Grid::~Grid() {}
 
 // Private methods
 
-void Grid::initCellGrid() {
+void Grid::initCellGrids() {
 
 	for (size_t i = 0; i < height; ++i) {
 		std::vector<Cell> row;
@@ -52,6 +57,7 @@ void Grid::initCellGrid() {
 			row.push_back(cell);
 		}
 		grid.push_back(row);
+		grid_temp.push_back(row);
 	}
 }
 
