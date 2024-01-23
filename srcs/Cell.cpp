@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 15:56:30 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:18:25 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 // Constructor
 
-Cell::Cell(const size_t x, const size_t y):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)), _pos{x, y}, _state(ALIVE) {}
+Cell::Cell():
+	_cellScreen(sf::Vector2f(cellSize, cellSize)), _state(ALIVE) {}
 
 Cell &Cell::operator=(const Cell &cell) {
-	this->_pos.x = cell._pos.x;
-	this->_pos.y = cell._pos.y;
 	this->_state = cell._state;
 	this->_cellScreen = cell._cellScreen;
 	return *this;
@@ -36,7 +34,6 @@ void Cell::setScreenPosition(const float screenX, const float screenY) {
 }
 
 void Cell::setCellColor(const sf::Color color) {
-	(void)_pos;
 	_cellScreen.setFillColor(color);
 }
 

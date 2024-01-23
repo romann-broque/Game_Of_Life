@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/23 16:20:53 by rbroque           #+#    #+#             */
+/*   Updated: 2024/01/23 16:20:55 by rbroque          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <SFML/Graphics.hpp>
 #include "Grid.hpp"
 #include "KeyHandler.hpp"
@@ -11,6 +23,7 @@ int main() {
 		handler.processEvents();
 		if (Config::isPaused() == false) {
 			window.clear(); // Clear the window
+			mainGrid.update();
 			mainGrid.display();
 			window.display(); // Display the contents of the window
 			usleep(Config::getTickTime());

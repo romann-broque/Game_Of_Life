@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 15:48:05 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:18:00 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ class Grid {
 	public:
 		Grid(sf::RenderWindow &window);
 		Grid(sf::RenderWindow &window, const size_t width, const size_t height);
+		void update();
+		void display_background();
+		void display_grid();
 		void display();
 		~Grid();
 
