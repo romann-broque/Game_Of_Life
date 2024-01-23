@@ -12,9 +12,12 @@ PATH_SRCS       += srcs/
 
 ### srcs/
 
-SRCS    += main.cpp
-SRCS    += Grid.cpp
 SRCS    += Cell.cpp
+SRCS    += Config.cpp
+SRCS    += EventLoop.cpp
+# SRCS    += KeyHandler.cpp
+SRCS    += Grid.cpp
+SRCS    += main.cpp
 
 vpath %.cpp $(PATH_SRCS)
 
@@ -30,7 +33,10 @@ OBJS			+= $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
 ##################
 
 HEADERS			+= Cell.hpp
+HEADERS			+= Config.hpp
 HEADERS			+= Defines.hpp
+HEADERS			+= EventLoop.hpp
+HEADERS			+= KeyHandler.hpp
 HEADERS			+= Grid.hpp
 
 PATH_INC		+= -I dependencies/
