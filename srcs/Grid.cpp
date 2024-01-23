@@ -6,21 +6,11 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 00:17:24 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:41:30 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Grid.hpp"
-
-// Static methods
-
-size_t countLivingCells(const std::vector<Cell *> cells) {
-	size_t count = 0;
-	for (std::vector<Cell *>::const_iterator it = cells.begin();
-		it != cells.end(); ++it)
-			count += (*it)->isAlive();
-	return count;
-}
 
 // Public methods
 
@@ -33,10 +23,14 @@ Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
 	height(height) { initCellGrid(); }
 
 void Grid::display() {
+	sf::RectangleShape border(sf::Vector2f(width * CELL_SIZE, height * CELL_SIZE));
+	border.setPosition(centerX, centerY);
+	border.setFillColor(sf::Color::Red);
+	window.draw(border);
 	for (size_t i = 0; i < height; ++i) {
 		for (size_t j = 0; j < width; ++j) {
-			updateCell(grid[i][j], i, j);
 			grid[i][j].draw(window);
+			updateCell(grid[i][j], j, i);
 		}
 	}
 }
@@ -61,11 +55,10 @@ void Grid::initCellGrid() {
 	}
 }
 
-std::vector<Cell *> Grid::getSurroundingCells(const size_t x, const size_t y) {
+std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y) {
 
-	std::vector<Cell *> surroundingCells;
+	std::vector<Cell> surroundingCells;
 
-	// Define the directions to check (up, down, left, right, and the four diagonals)
 	std::vector<std::pair<int, int>> directions
 		= {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
@@ -74,19 +67,21 @@ std::vector<Cell *> Grid::getSurroundingCells(const size_t x, const size_t y) {
 		int newX = x + it->first;
 		int newY = y + it->second;
 
-		// Check if the new indices are within the grid
-		if (newY >= 0 && (size_t)newY < height && newX >= 0 && (size_t)newX < width) {
-			surroundingCells.push_back(&(grid[newY][newX]));
-		}
+		size_t finalX = (newX + width) % width;
+		size_t finalY = (newY + height) % height;
+		if (grid[finalY][finalX].isAlive())
+			surroundingCells.push_back(grid[finalY][finalX]);
 	}
 	return surroundingCells;
 }
 
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
-	const std::vector<Cell *> surroundingCells = getSurroundingCells(x, y);
-	const size_t livingCellCount = countLivingCells(surroundingCells);
-	if ((cell.isAlive() && livingCellCount == 2) || livingCellCount == 3)
-		cell.setState(ALIVE);
-	else
+	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
+	const size_t livingCellCount = livingCells.size();
+
+	if (livingCellCount < 2 || livingCellCount > 3) {
 		cell.setState(DEAD);
+	}
+	else if (cell.isAlive() == false && livingCellCount == 3)
+		cell.setState(ALIVE);
 }

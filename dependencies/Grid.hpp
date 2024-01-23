@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/22 23:19:08 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:43:25 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ class Grid {
 		// Methods
 		void initCellGrid();
 		void updateCell(Cell &cell, const size_t i, const size_t j);
-		std::vector<Cell *> getSurroundingCells(const size_t i, const size_t j);
+		std::vector<Cell> getSurroundingLivingCells(const size_t i, const size_t j);
 };
