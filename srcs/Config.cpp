@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 11:21:22 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/24 11:49:15 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void Config::slowTime() {
 }
 
 void Config::accelerateTime() {
-	if (_tickTime > TIME_FACTOR)
+	if (_tickTime <= TIME_FACTOR)
+		_tickTime = 1;
+	else
 		_tickTime /= TIME_FACTOR;
 }
 

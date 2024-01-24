@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 16:18:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:44:03 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void Grid::update() {
 void Grid::display_background() {
 	sf::RectangleShape background(sf::Vector2f(width * CELL_SIZE, height * CELL_SIZE));
 	background.setPosition(centerX, centerY);
-	background.setFillColor(sf::Color::Red);
+	background.setFillColor(sf::Color::Blue);
 	window.draw(background);
 }
 
