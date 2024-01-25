@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 14:11:18 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:47:32 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void Grid::reset() {
 
 void Grid::display_background() {
 
-	sf::RectangleShape background(sf::Vector2f(width * CELL_SIZE + BORDER_THICKNESS, height * CELL_SIZE + BORDER_THICKNESS));
+	sf::RectangleShape background(sf::Vector2f(width * cellSize + BORDER_THICKNESS, height * cellSize + BORDER_THICKNESS));
 	background.setPosition(topLeftX - BORDER_THICKNESS, topLeftY - BORDER_THICKNESS);
 	background.setOutlineColor(BORDER_COLOR); // Set the outline color
 	background.setOutlineThickness(BORDER_THICKNESS); // Set the outline thickness
@@ -76,9 +76,9 @@ void Grid::initCellGrids() {
 	for (size_t i = 0; i < height; ++i) {
 		std::vector<Cell> row;
 		for (size_t j = 0; j < width; ++j) {
-			const float posX = j * CELL_SIZE + topLeftX;
-			const float posY = i * CELL_SIZE + topLeftY;
-			Cell cell;
+			const float posX = j * cellSize + topLeftX;
+			const float posY = i * cellSize + topLeftY;
+			Cell cell(cellSize);
 			cell.setScreenPosition(posX, posY);
 			cell.setCellColor(CELL_COLOR);
 			cell.setState();
@@ -118,7 +118,7 @@ void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
 	const size_t livingCellCount = livingCells.size();
 
-	if (livingCellCount < 2 || livingCellCount > 3) {
+	if (livingCellCount < 2 || livingCellCount > 4) {
 		cell.setState(DEAD);
 	}
 	else if (cell.isAlive() == false && livingCellCount == 3)

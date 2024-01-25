@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 16:18:25 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:45:17 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Constructor
 
-Cell::Cell():
+Cell::Cell(const size_t cellSize):
 	_cellScreen(sf::Vector2f(cellSize, cellSize)), _state(ALIVE) {}
 
 Cell &Cell::operator=(const Cell &cell) {

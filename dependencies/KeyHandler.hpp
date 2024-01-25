@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/24 13:59:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 17:24:27 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Config.hpp"
-#include <iostream>
 #include <queue>
 
 typedef void (*FunctionType)();

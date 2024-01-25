@@ -6,17 +6,17 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 13:32:28 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:46:06 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "Cell.hpp"
+#include "Config.hpp"
 #include <unistd.h>
 #include <cmath>
 #include <vector>
-#include <iostream>
 
 #include "Defines.hpp"
 
@@ -41,8 +41,9 @@ class Grid {
 		std::vector<std::vector<Cell>> grid;
 		std::vector<std::vector<Cell>> grid_temp;
 		std::vector<std::vector<Cell>> init_grid;
-		const float topLeftX = (WINDOW_WIDTH - width * CELL_SIZE) / 2;
-		const float topLeftY = (WINDOW_HEIGHT - height * CELL_SIZE) / 2;
+		const unsigned int cellSize = Config::getParameterVal(CELL_SIZE_NAME);
+		const float topLeftX = (WINDOW_WIDTH - width * cellSize) / 2;
+		const float topLeftY = (WINDOW_HEIGHT - height * cellSize) / 2;
 
 		// Methods
 		void initCellGrids();

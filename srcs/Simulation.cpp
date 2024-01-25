@@ -6,15 +6,19 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 17:07:04 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 17:51:00 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Simulation.hpp"
 
 Simulation::Simulation():
-	_window(sf::VideoMode(Config::getWindowWidth(), Config::getWindowHeight()), WINDOW_TITLE),
-	_grid(_window, Config::getGridWidth(), Config::getGridHeight()),
+	_window(sf::VideoMode(
+		Config::getParameterVal(WINDOW_WIDTH_NAME),
+		Config::getParameterVal(WINDOW_HEIGHT_NAME)), WINDOW_TITLE),
+	_grid(_window,
+		Config::getParameterVal(GRID_WIDTH_NAME),
+		Config::getParameterVal(GRID_HEIGHT_NAME)),
 	_handler(_window) {
 
 	sf::View view(_window.getDefaultView());
