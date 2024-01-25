@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 18:45:17 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:38:24 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 // Constructor
 
 Cell::Cell(const size_t cellSize):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)), _state(ALIVE) {}
+	_cellScreen(sf::Vector2f(cellSize, cellSize)), _color(CELL_COLOR), _state(ALIVE), _age(0) {}
 
 Cell &Cell::operator=(const Cell &cell) {
 	this->_state = cell._state;
 	this->_cellScreen = cell._cellScreen;
+	this->_age = cell._age;
 	return *this;
 }
 
@@ -34,7 +35,21 @@ void Cell::setScreenPosition(const float screenX, const float screenY) {
 }
 
 void Cell::setCellColor(const sf::Color color) {
-	_cellScreen.setFillColor(color);
+	_color = color;
+	_cellScreen.setFillColor(_color);
+}
+
+void Cell::changeBrightness(const int lightFactor) {
+
+	sf::Color newColor = _color;
+
+	if (newColor.r < 10)
+		newColor.r -= lightFactor;
+	if (newColor.g < 10)
+		newColor.g -= lightFactor;
+	if (newColor.b > 10)
+		newColor.b -= lightFactor;
+	setCellColor(newColor);
 }
 
 void Cell::setState(const t_state state) {
@@ -58,10 +73,21 @@ bool Cell::isAlive() const {
 	return _state == ALIVE;
 }
 
+size_t Cell::getAge() const {
+	return _age;
+}
+
 // Actions
 
-void Cell::draw(sf::RenderWindow &window) const {
+void Cell::draw(sf::RenderWindow &window) {
 	if (isAlive())
+	{
+		changeBrightness(DARK_FACTOR);
+		++_age;
 		window.draw(_cellScreen);
+	} else {
+		_age = 0;
+		setCellColor(CELL_COLOR);
+	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 19:01:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:38:44 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@
 #endif
 
 #ifndef CELL_COLOR_F
-# define CELL_COLOR_F Green
+# define CELL_COLOR_F White
 #endif
 
 #define BACKGROUND_COLOR sf::Color::BACKGROUND_COLOR_F
 #define BORDER_COLOR	 sf::Color::BORDER_COLOR_F
 #define CELL_COLOR		 sf::Color::CELL_COLOR_F
+#define DARK_FACTOR		 10
 
 // TIME //
 
