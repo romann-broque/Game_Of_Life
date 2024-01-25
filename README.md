@@ -24,9 +24,9 @@ To run the Game of Life project, follow these steps:
 
 1. **Install SFML**: Ensure the SFML library is installed on your system. Refer to the [SFML installation guide](https://www.sfml-dev.org/) for your platform.
 
-  ```shell
-  sudo apt-get install libsfml-dev
-  ```
+    ```shell
+    sudo apt-get install libsfml-dev
+    ```
 
 2. **Build and Run**:
  
