@@ -17,6 +17,7 @@ SRCS    += Config.cpp
 SRCS    += KeyHandler.cpp
 SRCS    += Grid.cpp
 SRCS    += main.cpp
+SRCS    += Simulation.cpp
 
 vpath %.cpp $(PATH_SRCS)
 
@@ -36,6 +37,7 @@ HEADERS			+= Config.hpp
 HEADERS			+= Defines.hpp
 HEADERS			+= KeyHandler.hpp
 HEADERS			+= Grid.hpp
+HEADERS			+= Simulation.hpp
 
 PATH_INC		+= -I dependencies/
 PATH_INC		+= -I /opt/homebrew/Cellar/sfml/2.6.1/include/

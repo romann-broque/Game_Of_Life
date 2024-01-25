@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/24 13:54:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:32:31 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 // DIMENSIONS //
 
-#define WINDOW_WIDTH		1200
-#define WINDOW_HEIGHT		900
+#define WINDOW_WIDTH		1900
+#define WINDOW_HEIGHT		1080
 #define GRID_WIDTH			100
 #define GRID_HEIGHT			100
-#define CELL_SIZE	 		7.0f // in pixels
+#define CELL_SIZE	 		5.0f // in pixels
 //
 // TIME //
 #define DEFAULT_TICK_TIME	100000 // in microsecondes

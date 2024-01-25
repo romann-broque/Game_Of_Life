@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 16:18:00 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:33:04 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ class Grid {
 		const size_t height;
 		std::vector<std::vector<Cell>> grid;
 		std::vector<std::vector<Cell>> grid_temp;
-		const float centerX = (WINDOW_WIDTH - CELL_SIZE * width) / 2;
-		const float centerY = (WINDOW_HEIGHT - CELL_SIZE * height) / 2;
+		const float topLeftX = (WINDOW_WIDTH - width * CELL_SIZE) / 2;
+		const float topLeftY = (WINDOW_HEIGHT - height * CELL_SIZE) / 2;
+
 		// Methods
 		void initCellGrids();
 		void updateCell(Cell &cell, const size_t i, const size_t j);

@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Simulation.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:20:53 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 11:40:37 by rbroque          ###   ########.fr       */
+/*   Created: 2024/01/25 11:34:06 by rbroque           #+#    #+#             */
+/*   Updated: 2024/01/25 11:41:34 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Simulation.hpp"
+#include <SFML/Graphics.hpp>
+#include "Grid.hpp"
+#include "KeyHandler.hpp"
 
-int main() {
+class Simulation {
 
-	Simulation game;
-	game.start();
-	return 0;
-}
+	public:
+		Simulation();
+		void start();
+		~Simulation();
+	private:
+		sf::RenderWindow _window;
+		Grid			 _grid;
+		KeyHandler		 _handler;
+};

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/23 17:44:03 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:26:58 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void Grid::update() {
 
 void Grid::display_background() {
 	sf::RectangleShape background(sf::Vector2f(width * CELL_SIZE, height * CELL_SIZE));
-	background.setPosition(centerX, centerY);
+	background.setPosition(topLeftX, topLeftY);
 	background.setFillColor(sf::Color::Blue);
 	window.draw(background);
 }
@@ -66,8 +66,8 @@ void Grid::initCellGrids() {
 	for (size_t i = 0; i < height; ++i) {
 		std::vector<Cell> row;
 		for (size_t j = 0; j < width; ++j) {
-			const float posX = j * CELL_SIZE + centerX;
-			const float posY = i * CELL_SIZE + centerY;
+			const float posX = j * CELL_SIZE + topLeftX;
+			const float posY = i * CELL_SIZE + topLeftY;
 			Cell cell;
 			cell.setScreenPosition(posX, posY);
 			cell.setState();
