@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 19:06:10 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 22:58:19 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,14 @@ std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y
 	return surroundingCells;
 }
 
-#include <iostream>
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
 	const size_t livingCellCount = livingCells.size();
 
+	cell.update();
 	if (livingCellCount < 2 || livingCellCount > 3) {
 		cell.setState(DEAD);
-	} else if (cell.isAlive() == false && livingCellCount == 3)
+	} else if (cell.isAlive() == false && livingCellCount == 3) {
 		cell.setState(ALIVE);
+	}
 }

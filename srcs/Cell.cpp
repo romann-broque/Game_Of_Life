@@ -6,11 +6,21 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 19:38:24 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 22:58:00 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cell.hpp"
+
+// Static
+
+static unsigned char newColorComponentBrightness(const unsigned char color, const int lightFactor) {
+	unsigned int newColor = color;
+	if (newColor + lightFactor > MIN_COLOR_COMP && newColor + lightFactor < MAX_COLOR_COMP) {
+		newColor += lightFactor;
+	}
+	return newColor;
+}
 
 // Constructor
 
@@ -43,12 +53,9 @@ void Cell::changeBrightness(const int lightFactor) {
 
 	sf::Color newColor = _color;
 
-	if (newColor.r < 10)
-		newColor.r -= lightFactor;
-	if (newColor.g < 10)
-		newColor.g -= lightFactor;
-	if (newColor.b > 10)
-		newColor.b -= lightFactor;
+	newColor.r = newColorComponentBrightness(newColor.r, lightFactor);
+	newColor.g = newColorComponentBrightness(newColor.g, lightFactor);
+	newColor.b = newColorComponentBrightness(newColor.b, lightFactor);
 	setCellColor(newColor);
 }
 
@@ -67,6 +74,16 @@ void Cell::setState() {
 	_state = randomNumber % probFactor == 0 ? ALIVE : DEAD;
 }
 
+void Cell::update() {
+	if (_state == ALIVE) {
+		++_age;
+		changeBrightness(DARK_FACTOR);
+	} else if (_state == DEAD) {
+		_age = 0;
+		setCellColor(CELL_COLOR);
+	}
+}
+
 // Getters
 
 bool Cell::isAlive() const {
@@ -81,13 +98,5 @@ size_t Cell::getAge() const {
 
 void Cell::draw(sf::RenderWindow &window) {
 	if (isAlive())
-	{
-		changeBrightness(DARK_FACTOR);
-		++_age;
 		window.draw(_cellScreen);
-	} else {
-		_age = 0;
-		setCellColor(CELL_COLOR);
-	}
 }
-
