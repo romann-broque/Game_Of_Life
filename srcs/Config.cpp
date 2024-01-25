@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:20:10 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:38:06 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void Config::init(char **av) {
 		std::string value = arg.substr(pos + 1);
 		if (isValidUnsignedInt(value)) {
 			const unsigned int numericValue = std::stoul(value);
-			_argNb[key] = numericValue;
+			assignValueToKey(key, numericValue);
 		} else {
 			throw InvalidValueException();
 		}
@@ -110,4 +110,13 @@ unsigned int Config::getParameterVal(const std::string &paramName) {
 	if (_argNb.find(paramName) == _argNb.end())
 		throw InvalidParameterRequestException();
 	return _argNb[paramName];
+}
+
+// Private methods
+
+void Config::assignValueToKey(const std::string &key, const unsigned int value) {
+
+	if (key == LIFE_PROBA_NAME && value > 100)
+		throw InvalidValueException();
+	_argNb[key] = value;
 }

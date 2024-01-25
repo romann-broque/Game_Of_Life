@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:20:07 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:37:17 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ class Config {
 		static bool _isReset;
 		static size_t _tickTime;
 		static std::map<std::string, unsigned int> _argNb;
+
+		static void assignValueToKey(const std::string &key, const unsigned int value);
 };
