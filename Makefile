@@ -63,20 +63,17 @@ ifeq ($(analysis), true)
 endif
 
 ifneq ($(no_error), true)
-CFLAGS  +=      -Werror
+	CFLAGS  +=      -Werror
 endif
 
 ifeq ($(debug), true)
-CFLAGS  += -fsanitize=undefined,thread
-endif
-
-ifeq ($(print_debug), false)
-CFLAGS  += -D PRINT_DEBUG=false
+	CFLAGS  += -fsanitize=undefined,thread
 endif
 
 LINKS	+= -lsfml-window
 LINKS	+= -lsfml-system
 LINKS	+= -lsfml-graphics
+
 
 ##############
 #### NAME ####

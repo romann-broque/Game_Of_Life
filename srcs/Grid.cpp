@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 11:56:27 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 14:11:18 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ void Grid::reset() {
 }
 
 void Grid::display_background() {
-	sf::RectangleShape background(sf::Vector2f(width * CELL_SIZE, height * CELL_SIZE));
-	background.setPosition(topLeftX, topLeftY);
-	background.setFillColor(sf::Color::Blue);
+
+	sf::RectangleShape background(sf::Vector2f(width * CELL_SIZE + BORDER_THICKNESS, height * CELL_SIZE + BORDER_THICKNESS));
+	background.setPosition(topLeftX - BORDER_THICKNESS, topLeftY - BORDER_THICKNESS);
+	background.setOutlineColor(BORDER_COLOR); // Set the outline color
+	background.setOutlineThickness(BORDER_THICKNESS); // Set the outline thickness
+	background.setFillColor(BACKGROUND_COLOR);
 	window.draw(background);
 }
 
@@ -77,6 +80,7 @@ void Grid::initCellGrids() {
 			const float posY = i * CELL_SIZE + topLeftY;
 			Cell cell;
 			cell.setScreenPosition(posX, posY);
+			cell.setCellColor(CELL_COLOR);
 			cell.setState();
 			row.push_back(cell);
 		}
