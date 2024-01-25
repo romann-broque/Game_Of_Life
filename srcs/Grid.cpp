@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 11:26:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:56:27 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void Grid::update() {
 			grid[i][j] = grid_temp[i][j];
 		}
 	}
+}
+
+void Grid::reset() {
+
+	grid.clear();
+	grid_temp.clear();
+	initCellGrids(init_grid);
 }
 
 void Grid::display_background() {
@@ -75,7 +82,14 @@ void Grid::initCellGrids() {
 		}
 		grid.push_back(row);
 		grid_temp.push_back(row);
+		init_grid.push_back(row);
 	}
+}
+
+void Grid::initCellGrids(const std::vector<std::vector<Cell>> &init_grid) {
+
+	grid = init_grid;
+	grid_temp = init_grid;
 }
 
 std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y) {
@@ -106,4 +120,3 @@ void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	else if (cell.isAlive() == false && livingCellCount == 3)
 		cell.setState(ALIVE);
 }
-
