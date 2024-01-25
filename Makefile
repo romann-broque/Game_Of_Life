@@ -56,7 +56,7 @@ CC      =       c++
 
 CFLAGS  +=      -Wall
 CFLAGS  +=      -Wextra
-CFLAGS  +=      -std=c++11
+CFLAGS  +=      -std=c++17
 
 ifeq ($(analysis), true)
 	CFLAGS	+=		-pg
