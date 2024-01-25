@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 18:47:32 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:06:10 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void Grid::reset() {
 
 void Grid::display_background() {
 
-	sf::RectangleShape background(sf::Vector2f(width * cellSize + BORDER_THICKNESS, height * cellSize + BORDER_THICKNESS));
-	background.setPosition(topLeftX - BORDER_THICKNESS, topLeftY - BORDER_THICKNESS);
+	sf::RectangleShape background(sf::Vector2f(width * cellSize, height * cellSize));
+	background.setPosition(topLeftX, topLeftY);
 	background.setOutlineColor(BORDER_COLOR); // Set the outline color
 	background.setOutlineThickness(BORDER_THICKNESS); // Set the outline thickness
 	background.setFillColor(BACKGROUND_COLOR);
@@ -114,13 +114,13 @@ std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y
 	return surroundingCells;
 }
 
+#include <iostream>
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
 	const size_t livingCellCount = livingCells.size();
 
-	if (livingCellCount < 2 || livingCellCount > 4) {
+	if (livingCellCount < 2 || livingCellCount > 3) {
 		cell.setState(DEAD);
-	}
-	else if (cell.isAlive() == false && livingCellCount == 3)
+	} else if (cell.isAlive() == false && livingCellCount == 3)
 		cell.setState(ALIVE);
 }

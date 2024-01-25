@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 18:40:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:01:46 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 // Transparent
 
 #ifndef BACKGROUND_COLOR_F
-# define BACKGROUND_COLOR_F Magenta
+# define BACKGROUND_COLOR_F Black
 #endif
 
 #ifndef BORDER_COLOR_F
@@ -44,7 +44,7 @@
 #endif
 
 #ifndef CELL_COLOR_F
-# define CELL_COLOR_F White
+# define CELL_COLOR_F Green
 #endif
 
 #define BACKGROUND_COLOR sf::Color::BACKGROUND_COLOR_F
