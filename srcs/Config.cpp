@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:38:06 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:24:39 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{GRID_WIDTH_NAME, GRID_WIDTH},
 	{GRID_HEIGHT_NAME, GRID_HEIGHT},
 	{CELL_SIZE_NAME, CELL_SIZE},
-	{LIFE_PROBA_NAME, LIFE_PROBA}
+	{LIFE_PROBA_NAME, LIFE_PROBA},
+	{BORDER_THICK_NAME,  BORDER_THICKNESS},
+	{BORDER_COLOR_NAME, BORDER_COLOR},
+	{BACKGROUND_COLOR_NAME, BACKGROUND_COLOR},
+	{CELL_COLOR_NAME, CELL_COLOR}
 };
 
 // Static methods
@@ -36,6 +40,29 @@ static bool isValidUnsignedInt(const std::string& str) {
 	} catch (const std::out_of_range&) {
 		return false;
 	}
+}
+
+static unsigned int hexToDec(const std::string& hexStr) {
+	std::stringstream ss;
+	unsigned int decNum;
+	ss << std::hex << hexStr;
+	ss >> decNum;
+	return decNum;
+}
+
+static bool isHexadecimal(const std::string& str) {
+	for (char c : str) {
+		if (!(std::isxdigit(c))) {
+			return false;
+		}
+	}
+	return true;
+}
+
+static bool isHexKey(const std::string& key) {
+	return key == BACKGROUND_COLOR_NAME
+	|| key == BORDER_COLOR_NAME
+	|| key == CELL_COLOR_NAME;
 }
 
 // Public methods
@@ -56,12 +83,7 @@ void Config::init(char **av) {
 			throw InvalidParameterException();
 		}
 		std::string value = arg.substr(pos + 1);
-		if (isValidUnsignedInt(value)) {
-			const unsigned int numericValue = std::stoul(value);
-			assignValueToKey(key, numericValue);
-		} else {
-			throw InvalidValueException();
-		}
+		associateValueToKey(key, value);
 		++i;
 	}
 }
@@ -114,6 +136,20 @@ unsigned int Config::getParameterVal(const std::string &paramName) {
 
 // Private methods
 
+void Config::associateValueToKey(const std::string &key, const std::string &value) {
+
+	if (isHexKey(key)) {
+		if (isHexadecimal(value) == false)
+			throw InvalidValueException();
+		const unsigned int numericValue = hexToDec(value);
+		assignValueToKey(key, numericValue);
+	} else if (isValidUnsignedInt(value)) {
+		const unsigned int numericValue = std::stoul(value);
+		assignValueToKey(key, numericValue);
+	} else {
+		throw InvalidValueException();
+	}
+}
 void Config::assignValueToKey(const std::string &key, const unsigned int value) {
 
 	if (key == LIFE_PROBA_NAME && value > 100)

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:22:36 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:25:58 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,17 @@ class Grid {
 		std::vector<std::vector<Cell>> grid;
 		std::vector<std::vector<Cell>> grid_temp;
 		std::vector<std::vector<Cell>> init_grid;
+		sf::Color borderColor;
+		sf::Color backgroundColor;
+		sf::Color cellColor;
+		const unsigned int borderThick = Config::getParameterVal(BORDER_THICK_NAME);
 		const unsigned int cellSize = Config::getParameterVal(CELL_SIZE_NAME);
 		const unsigned int lifeProba = Config::getParameterVal(LIFE_PROBA_NAME);
 		const float topLeftX = (WINDOW_WIDTH - width * cellSize) / 2;
 		const float topLeftY = (WINDOW_HEIGHT - height * cellSize) / 2;
 
 		// Methods
+		void initColors();
 		void initCellGrids();
 		void initCellGrids(const std::vector<std::vector<Cell>> &init_grid);
 		void updateCell(Cell &cell, const size_t i, const size_t j);

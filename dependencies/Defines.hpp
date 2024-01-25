@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:06:28 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:12:01 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,9 @@
 
 // COLOR //
 
-// Black;
-// White;
-// Red;
-// Green;
-// Blue;
-// Yellow;
-// Magenta;
-// Cyan;
-// Transparent
-
-#ifndef BACKGROUND_COLOR_F
-# define BACKGROUND_COLOR_F Blue
-#endif
-
-#ifndef BORDER_COLOR_F
-# define BORDER_COLOR_F Yellow
-#endif
-
-#ifndef CELL_COLOR_F
-# define CELL_COLOR_F White
-#endif
-
-#define BACKGROUND_COLOR sf::Color::BACKGROUND_COLOR_F
-#define BORDER_COLOR	 sf::Color::BORDER_COLOR_F
-#define CELL_COLOR		 sf::Color::CELL_COLOR_F
+#define BACKGROUND_COLOR 0x0000ff
+#define BORDER_COLOR	 0x0000ff
+#define CELL_COLOR		 0xffffff
 #define DARK_FACTOR		 -5
 #define MIN_COLOR_COMP	10
 #define MAX_COLOR_COMP	256

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:37:17 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:25:05 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 #include <string>
 #include <map>
 #include <exception>
+#include <sstream>
+#include <iomanip>
 
+#include <SFML/Graphics.hpp>
 #include "Defines.hpp"
 
 // Parameters name //
@@ -29,6 +32,10 @@
 #define GRID_HEIGHT_NAME "grid_height"
 #define CELL_SIZE_NAME "cell_size"
 #define LIFE_PROBA_NAME "life"
+#define BORDER_THICK_NAME "border_thick"
+#define BORDER_COLOR_NAME "border_color"
+#define BACKGROUND_COLOR_NAME "background_color"
+#define CELL_COLOR_NAME "cell_color"
 
 // Error Messages //
 
@@ -64,5 +71,6 @@ class Config {
 		static size_t _tickTime;
 		static std::map<std::string, unsigned int> _argNb;
 
+		static void associateValueToKey(const std::string &key, const std::string &value);
 		static void assignValueToKey(const std::string &key, const unsigned int value);
 };

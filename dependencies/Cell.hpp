@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:21:27 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:17:16 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum e_state {
 
 class Cell {
 	public:
-		Cell(const size_t cellSize);
+		Cell(const size_t cellSize, const sf::Color &color);
 		Cell &operator=(const Cell &cell);
 		// Setters
 		void setScreenPosition(const float screenX, const float screenY);
@@ -41,6 +41,7 @@ class Cell {
 
 	private:
 		sf::RectangleShape _cellScreen;
+		sf::Color			_initColor;
 		sf::Color			_color;
 		t_state _state;
 		size_t	_age;

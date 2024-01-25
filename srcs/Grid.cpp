@@ -6,21 +6,36 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:22:15 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:26:21 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Grid.hpp"
 
+static sf::Color hexToRgb(const unsigned int num) {
+	const unsigned char r = num >> 16 & 0xFF;
+	const unsigned char g = num >> 8 & 0xFF;
+	const unsigned char b = num & 0xFF;
+	return sf::Color(r, g, b);
+}
+
 // Public methods
 
 Grid::Grid(sf::RenderWindow &window):
 	window(window), width(DEFAULT_SIZE),
-	height(DEFAULT_SIZE) { initCellGrids(); }
+	height(DEFAULT_SIZE) {
+
+	initColors();
+	initCellGrids();
+}
 
 Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
 	window(window), width(width),
-	height(height) { initCellGrids(); }
+	height(height) {
+
+	initColors();
+	initCellGrids();
+}
 
 void Grid::update() {
 
@@ -47,9 +62,9 @@ void Grid::display_background() {
 
 	sf::RectangleShape background(sf::Vector2f(width * cellSize, height * cellSize));
 	background.setPosition(topLeftX, topLeftY);
-	background.setOutlineColor(BORDER_COLOR); // Set the outline color
-	background.setOutlineThickness(BORDER_THICKNESS); // Set the outline thickness
-	background.setFillColor(BACKGROUND_COLOR);
+	background.setOutlineColor(borderColor); // Set the outline color
+	background.setOutlineThickness(borderThick); // Set the outline thickness
+	background.setFillColor(backgroundColor);
 	window.draw(background);
 }
 
@@ -78,9 +93,9 @@ void Grid::initCellGrids() {
 		for (size_t j = 0; j < width; ++j) {
 			const float posX = j * cellSize + topLeftX;
 			const float posY = i * cellSize + topLeftY;
-			Cell cell(cellSize);
+			Cell cell(cellSize, cellColor);
 			cell.setScreenPosition(posX, posY);
-			cell.setCellColor(CELL_COLOR);
+			cell.setCellColor(cellColor);
 			cell.setState(lifeProba);
 			row.push_back(cell);
 		}
@@ -124,4 +139,13 @@ void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	} else if (cell.isAlive() == false && livingCellCount == 3) {
 		cell.setState(ALIVE);
 	}
+}
+
+// Private
+
+void Grid::initColors() {
+
+	backgroundColor = hexToRgb(Config::getParameterVal(BACKGROUND_COLOR_NAME));
+	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
+	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
 }

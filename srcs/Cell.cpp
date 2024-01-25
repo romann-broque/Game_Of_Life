@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 23:21:15 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:17:12 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ static unsigned char newColorComponentBrightness(const unsigned char color, cons
 
 // Constructor
 
-Cell::Cell(const size_t cellSize):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)), _color(CELL_COLOR), _state(ALIVE), _age(0) {}
+Cell::Cell(const size_t cellSize, const sf::Color &color):
+	_cellScreen(sf::Vector2f(cellSize, cellSize)), _initColor(color), _color(color), _state(ALIVE), _age(0) {
+
+	setCellColor(_color);
+}
 
 Cell &Cell::operator=(const Cell &cell) {
 	this->_state = cell._state;
@@ -80,7 +83,7 @@ void Cell::update() {
 		changeBrightness(DARK_FACTOR);
 	} else if (_state == DEAD) {
 		_age = 0;
-		setCellColor(CELL_COLOR);
+		setCellColor(_initColor);
 	}
 }
 
