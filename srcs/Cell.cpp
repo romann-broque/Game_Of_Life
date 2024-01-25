@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 22:58:00 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:21:15 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void Cell::setState(const t_state state) {
 	_state = state;
 }
 
-void Cell::setState() {
+void Cell::setState(const unsigned char lifeProba) {
+
 	std::random_device rd; // Will be used to obtain a seed for the random number engine
 	std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 	std::uniform_int_distribution<> distrib(1, 100);
 
 	const int randomNumber = distrib(gen);
-	const int probFactor = 100 / LIFE_PROBA;
 
-	_state = randomNumber % probFactor == 0 ? ALIVE : DEAD;
+	_state = randomNumber <= lifeProba ? ALIVE : DEAD;
 }
 
 void Cell::update() {

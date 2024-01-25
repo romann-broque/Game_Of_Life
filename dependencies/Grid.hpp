@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 18:46:06 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:22:36 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class Grid {
 		std::vector<std::vector<Cell>> grid_temp;
 		std::vector<std::vector<Cell>> init_grid;
 		const unsigned int cellSize = Config::getParameterVal(CELL_SIZE_NAME);
+		const unsigned int lifeProba = Config::getParameterVal(LIFE_PROBA_NAME);
 		const float topLeftX = (WINDOW_WIDTH - width * cellSize) / 2;
 		const float topLeftY = (WINDOW_HEIGHT - height * cellSize) / 2;
 

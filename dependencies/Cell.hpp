@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 22:58:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:21:27 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class Cell {
 		void setScreenPosition(const float screenX, const float screenY);
 		void setCellColor(const sf::Color color);
 		void setState(const t_state);
-		void setState();
+		void setState(const unsigned char lifeProba);
 		// Getters
 		bool isAlive() const;
 		size_t getAge() const;

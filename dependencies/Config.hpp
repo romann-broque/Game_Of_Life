@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 17:53:02 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:20:07 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define GRID_WIDTH_NAME "grid_width"
 #define GRID_HEIGHT_NAME "grid_height"
 #define CELL_SIZE_NAME "cell_size"
+#define LIFE_PROBA_NAME "life"
 
 // Error Messages //
 

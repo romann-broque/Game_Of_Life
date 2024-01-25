@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 18:31:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/25 23:20:10 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{GRID_WIDTH_NAME, GRID_WIDTH},
 	{GRID_HEIGHT_NAME, GRID_HEIGHT},
 	{CELL_SIZE_NAME, CELL_SIZE},
+	{LIFE_PROBA_NAME, LIFE_PROBA}
 };
 
 // Static methods
@@ -56,7 +57,7 @@ void Config::init(char **av) {
 		}
 		std::string value = arg.substr(pos + 1);
 		if (isValidUnsignedInt(value)) {
-			unsigned int numericValue = std::stoul(value);
+			const unsigned int numericValue = std::stoul(value);
 			_argNb[key] = numericValue;
 		} else {
 			throw InvalidValueException();
@@ -106,7 +107,7 @@ size_t Config::getTickTime() {
 }
 
 unsigned int Config::getParameterVal(const std::string &paramName) {
-	// if (_argNb.find(paramName) == _argNb.end())
-	// 	throw InvalidParameterRequestException();
+	if (_argNb.find(paramName) == _argNb.end())
+		throw InvalidParameterRequestException();
 	return _argNb[paramName];
 }
