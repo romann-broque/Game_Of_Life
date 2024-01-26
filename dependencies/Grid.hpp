@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:25:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 02:11:29 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class Grid {
 		Grid(sf::RenderWindow &window);
 		Grid(sf::RenderWindow &window, const size_t width, const size_t height);
 		void update();
+		void refresh();
 		void reset();
 		void display_background();
 		void display_grid();
@@ -39,7 +40,6 @@ class Grid {
 		const size_t width;
 		const size_t height;
 		std::vector<std::vector<Cell>> grid;
-		std::vector<std::vector<Cell>> grid_temp;
 		std::vector<std::vector<Cell>> init_grid;
 		sf::Color borderColor;
 		sf::Color backgroundColor;
@@ -53,7 +53,7 @@ class Grid {
 		// Methods
 		void initColors();
 		void initCellGrids();
-		void initCellGrids(const std::vector<std::vector<Cell>> &init_grid);
+		void resetCellGrid();
 		void updateCell(Cell &cell, const size_t i, const size_t j);
 		std::vector<Cell> getSurroundingLivingCells(const size_t i, const size_t j);
 };

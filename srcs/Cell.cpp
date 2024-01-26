@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:17:12 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 02:14:12 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static unsigned char newColorComponentBrightness(const unsigned char color, cons
 // Constructor
 
 Cell::Cell(const size_t cellSize, const sf::Color &color):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)), _initColor(color), _color(color), _state(ALIVE), _age(0) {
+	_cellScreen(sf::Vector2f(cellSize, cellSize)), _initColor(color), _color(color), _state(ALIVE), _nextState(ALIVE), _age(0) {
 
 	setCellColor(_color);
 }
@@ -62,8 +62,17 @@ void Cell::changeBrightness(const int lightFactor) {
 	setCellColor(newColor);
 }
 
-void Cell::setState(const t_state state) {
-	_state = state;
+void Cell::refresh() {
+	_state = _nextState;
+	update();
+}
+
+void Cell::setNextState(const t_state newState) {
+	_nextState = newState;
+}
+
+void Cell::setState(const t_state newState) {
+	_state = newState;
 }
 
 void Cell::setState(const unsigned char lifeProba) {
@@ -73,7 +82,6 @@ void Cell::setState(const unsigned char lifeProba) {
 	std::uniform_int_distribution<> distrib(1, 100);
 
 	const int randomNumber = distrib(gen);
-
 	_state = randomNumber <= lifeProba ? ALIVE : DEAD;
 }
 

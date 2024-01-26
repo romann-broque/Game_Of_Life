@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:26:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 02:12:07 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,23 @@ void Grid::update() {
 
 	for (size_t i = 0; i < height; ++i) {
 		for (size_t j = 0; j < width; ++j) {
-			updateCell(grid_temp[i][j], j, i);
+			updateCell(grid[i][j], j, i);
 		}
 	}
+	refresh();
+}
+
+void Grid::refresh() {
 	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j) {
-			grid[i][j] = grid_temp[i][j];
-		}
+		for (size_t j = 0; j < width; ++j)
+			grid[i][j].refresh();
 	}
 }
 
 void Grid::reset() {
 
 	grid.clear();
-	grid_temp.clear();
-	initCellGrids(init_grid);
+	resetCellGrid();
 }
 
 void Grid::display_background() {
@@ -100,15 +102,12 @@ void Grid::initCellGrids() {
 			row.push_back(cell);
 		}
 		grid.push_back(row);
-		grid_temp.push_back(row);
 		init_grid.push_back(row);
 	}
 }
 
-void Grid::initCellGrids(const std::vector<std::vector<Cell>> &init_grid) {
-
+void Grid::resetCellGrid() {
 	grid = init_grid;
-	grid_temp = init_grid;
 }
 
 std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y) {
@@ -133,11 +132,10 @@ void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
 	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
 	const size_t livingCellCount = livingCells.size();
 
-	cell.update();
 	if (livingCellCount < 2 || livingCellCount > 3) {
-		cell.setState(DEAD);
+		cell.setNextState(DEAD);
 	} else if (cell.isAlive() == false && livingCellCount == 3) {
-		cell.setState(ALIVE);
+		cell.setNextState(ALIVE);
 	}
 }
 
