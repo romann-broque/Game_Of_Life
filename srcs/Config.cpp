@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:59:35 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 02:25:07 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{BORDER_THICK_NAME,  BORDER_THICKNESS},
 	{BORDER_COLOR_NAME, BORDER_COLOR},
 	{BACKGROUND_COLOR_NAME, BACKGROUND_COLOR},
-	{CELL_COLOR_NAME, CELL_COLOR}
+	{CELL_COLOR_NAME, CELL_COLOR},
+	{DARKENING_NAME, DARKENING}
 };
 
 // Static methods
@@ -145,17 +146,22 @@ unsigned int Config::getParameterVal(const std::string &paramName) {
 
 void Config::associateValueToKey(const std::string &key, const std::string &value) {
 
-	if (isHexKey(key)) {
+	unsigned int numericValue;
+
+	if (key == DARKENING_NAME) {
+		if (value != "yes" && value != "no")
+			throw InvalidValueException();
+		numericValue = (value == "yes");
+	} else if (isHexKey(key)) {
 		if (isHexadecimal(value) == false)
 			throw InvalidValueException();
-		const unsigned int numericValue = hexToDec(value);
-		assignValueToKey(key, numericValue);
+		numericValue = hexToDec(value);
 	} else if (isValidUnsignedInt(value)) {
-		const unsigned int numericValue = std::stoul(value);
-		assignValueToKey(key, numericValue);
+		numericValue = std::stoul(value);
 	} else {
 		throw InvalidValueException();
 	}
+	assignValueToKey(key, numericValue);
 }
 void Config::assignValueToKey(const std::string &key, const unsigned int value) {
 

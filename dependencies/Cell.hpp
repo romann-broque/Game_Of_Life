@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:13:57 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 02:31:07 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 
+#include "Config.hpp"
 #include "Defines.hpp"
 
 typedef enum e_state {
@@ -45,6 +46,7 @@ class Cell {
 		sf::RectangleShape _cellScreen;
 		sf::Color			_initColor;
 		sf::Color			_color;
+		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
 		t_state _state;
 		t_state _nextState;
 		size_t	_age;
