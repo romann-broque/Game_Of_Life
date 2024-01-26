@@ -62,6 +62,8 @@ It is possible to specify certain option values:
 - **Cell color**
 - **Cell size**
 - **Darkening**
+- **Food Color**
+- **Food Presence**
 - **Grid dimensions**
 - **Probability of life**
 - **Window dimensions**
