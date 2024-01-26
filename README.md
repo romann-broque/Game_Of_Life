@@ -65,6 +65,7 @@ It is possible to specify certain option values:
 - **Food Color**
 - **Food Presence**
 - **Grid dimensions**
+- **Probability of food**
 - **Probability of life**
 - **Window dimensions**
 
