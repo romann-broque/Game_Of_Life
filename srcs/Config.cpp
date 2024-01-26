@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 11:29:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:26:27 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{BORDER_COLOR_NAME, BORDER_COLOR},
 	{BACKGROUND_COLOR_NAME, BACKGROUND_COLOR},
 	{CELL_COLOR_NAME, CELL_COLOR},
-	{DARKENING_NAME, DARKENING}
+	{DARKENING_NAME, DARKENING},
+	{FOOD_NAME, FOOD_PRESENCE}
 };
 std::vector<sf::Vector2i> Config::_mousePos;
 
@@ -165,7 +166,7 @@ void Config::associateValueToKey(const std::string &key, const std::string &valu
 
 	unsigned int numericValue;
 
-	if (key == DARKENING_NAME) {
+	if (key == DARKENING_NAME || key == FOOD_NAME) {
 		if (value != "yes" && value != "no")
 			throw InvalidValueException();
 		numericValue = (value == "yes");

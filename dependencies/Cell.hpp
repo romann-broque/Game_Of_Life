@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 10:48:55 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:25:47 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef enum e_state {
 	ALIVE,
+	FOOD,
 	DEAD
 } t_state;
 
@@ -37,21 +38,30 @@ class Cell {
 		void toggleState();
 		// Getters
 		bool isAlive() const;
+		t_state getState() const;
 		size_t getAge() const;
 		// Action
 		void draw(sf::RenderWindow &window);
+		void evolve(const size_t livingCount, const size_t foodCount, const size_t deadCount);
 		void refresh();
 
 	private:
 		// Attributes
+		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
+		const bool			_foodPresence = Config::getParameterVal(FOOD_NAME);
 		sf::RectangleShape _cellScreen;
 		sf::Color			_initColor;
 		sf::Color			_color;
-		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
-		t_state _state;
-		t_state _nextState;
-		size_t	_age;
+		t_state 			_state;
+		t_state 			_nextState;
+		size_t				_age;
+		size_t				_livingCount;
+		size_t				_foodCount;
+		size_t				_deadCount;
 		// Private methods
 		void changeBrightness(const int lightFactor);
 		void update();
+		void lifeRoutine();
+		void foodRoutine();
+		void deadRoutine();
 };

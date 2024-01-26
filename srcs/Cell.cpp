@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 11:11:08 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:28:10 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static unsigned char newColorComponentBrightness(const unsigned char color, cons
 // Constructor
 
 Cell::Cell(const size_t cellSize, const sf::Color &color):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)), _initColor(color), _color(color), _state(ALIVE), _nextState(ALIVE), _age(0) {
+	_cellScreen(sf::Vector2f(cellSize, cellSize)),
+	_initColor(color), _color(color), _state(ALIVE), _nextState(ALIVE),
+	_age(0), _livingCount(0), _foodCount(0), _deadCount(0) {
 
 	setCellColor(_color);
 }
@@ -82,7 +84,12 @@ void Cell::setState(const unsigned char lifeProba) {
 	std::uniform_int_distribution<> distrib(1, 100);
 
 	const int randomNumber = distrib(gen);
-	_state = randomNumber <= lifeProba ? ALIVE : DEAD;
+	if (randomNumber < lifeProba)
+		_state = ALIVE;
+	else if (_foodPresence && randomNumber > 80)
+		_state = FOOD;
+	else
+		_state = DEAD;
 }
 
 void Cell::toggleState() {
@@ -105,6 +112,9 @@ void Cell::update() {
 		_age = 0;
 		if (_darkening)
 			setCellColor(_initColor);
+	} else if (_state == FOOD) {
+		_age = 0;
+		setCellColor(sf::Color::Red);
 	}
 }
 
@@ -114,6 +124,10 @@ bool Cell::isAlive() const {
 	return _state == ALIVE;
 }
 
+t_state Cell::getState() const {
+	return _state;
+}
+
 size_t Cell::getAge() const {
 	return _age;
 }
@@ -121,6 +135,37 @@ size_t Cell::getAge() const {
 // Actions
 
 void Cell::draw(sf::RenderWindow &window) {
-	if (isAlive())
+	if (_state != DEAD)
 		window.draw(_cellScreen);
+}
+
+void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t deadCount) {
+
+	static const std::map<t_state, void (Cell::*)()> mapState = {
+		{ALIVE, &Cell::lifeRoutine},
+		{FOOD, &Cell::foodRoutine},
+		{DEAD, &Cell::deadRoutine}
+	};
+
+	_livingCount = livingCount;
+	_foodCount = foodCount;
+	_deadCount = deadCount;
+	(this->*(mapState.at(_state)))();
+}
+
+void Cell::lifeRoutine() {
+	if (_foodCount < 2 && (_livingCount < 2 || _livingCount > 3))
+		setNextState(DEAD);
+}
+
+void Cell::foodRoutine() {
+	if (_livingCount >= 1)
+		setNextState(DEAD);
+}
+
+void Cell::deadRoutine() {
+	if (_foodPresence && (_deadCount == 6 || _deadCount == 8))
+		setNextState(FOOD);
+	else if (_livingCount == 3 || _foodCount > 2)
+		setNextState(ALIVE);
 }

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 11:38:54 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:29:09 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 // DISTRIBUTION //
 
 #define LIFE_PROBA			20 // in percentage
+#define FOOD_PRESENCE		1
 
 // Parameters name //
 
@@ -56,6 +57,7 @@
 #define BACKGROUND_COLOR_NAME "background_color"
 #define CELL_COLOR_NAME "cell_color"
 #define DARKENING_NAME "darkening"
+#define FOOD_NAME "food"
 
 // STRING //
 
@@ -71,6 +73,7 @@
 	" --" CELL_COLOR_NAME "       =<hexadecimal_value> [default:FFFFFF]\n\n"\
 	" --" CELL_SIZE_NAME "        =<pixels_nb>         [default:5]\n\n"\
 	" --" DARKENING_NAME "        =<yes|no>            [default:yes]\n\n"\
+	" --" FOOD_NAME "             =<yes|no>            [default:yes]\n\n"\
 	" --" GRID_WIDTH_NAME "       =<cells_nb>          [default:100]\n\n"\
 	" --" GRID_HEIGHT_NAME "      =<cells_nb>          [default:100]\n\n"\
 	" -h, --help         Display this help message and exit\n\n"\
