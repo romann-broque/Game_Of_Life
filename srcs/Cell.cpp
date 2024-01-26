@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 21:22:08 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 22:56:12 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void Cell::setState(const unsigned char lifeProba) {
 	std::uniform_int_distribution<> distrib(1, 100);
 
 	const int randomNumber = distrib(gen);
-	if (randomNumber < lifeProba)
+	if (randomNumber <= lifeProba)
 		_state = ALIVE;
 	else if (_foodPresence && randomNumber > 80)
 		_state = FOOD;
@@ -120,8 +120,6 @@ void Cell::update() {
 			changeBrightness(DARK_FACTOR);
 	} else if (_state == DEAD) {
 		_age = 0;
-		if (_darkening)
-			setCellColor(_initColor);
 	} else if (_state == FOOD) {
 		_age = 0;
 		setCellColor(_foodColor);
@@ -164,18 +162,26 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 }
 
 void Cell::lifeRoutine() {
-	if (_foodCount < 2 && (_livingCount < 2 || _livingCount > 3))
+	if ((_foodPresence && _foodCount < 1) && (_livingCount < 2 || _livingCount > 3))
 		setNextState(DEAD);
+	else if (_livingCount < 2 || _livingCount > 3)
+		setNextState(DEAD);
+	else
+		setNextState(ALIVE);
 }
 
 void Cell::foodRoutine() {
 	if (_livingCount >= 1)
 		setNextState(DEAD);
+	else
+		setNextState(FOOD);
 }
 
 void Cell::deadRoutine() {
-	if (_foodPresence && (_deadCount == 6 || _deadCount == 8 || _foodCount >= 5))
-		setNextState(FOOD);
-	else if (_livingCount == 3 || _foodCount > 2)
+	if (_livingCount == 3 || (_foodPresence && _foodCount > 2))
 		setNextState(ALIVE);
+	else if (_foodPresence && (_deadCount == 6 || _deadCount == 8 || _foodCount >= 5))
+		setNextState(FOOD);
+	else
+		setNextState(DEAD);
 }

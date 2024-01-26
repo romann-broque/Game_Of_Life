@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:37:13 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 22:40:23 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ void Grid::initCellGrids() {
 			const float posY = i * cellSize + topLeftY;
 			Cell cell(cellSize, cellColor);
 			cell.setScreenPosition(posX, posY);
-			cell.setCellStateColor(ALIVE, cellColor);
 			cell.setCellStateColor(FOOD, foodColor);
+			cell.setCellStateColor(ALIVE, cellColor);
 			cell.setState(lifeProba);
 			row.push_back(cell);
 		}
