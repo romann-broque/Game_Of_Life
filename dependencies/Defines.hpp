@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 11:37:31 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:38:54 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 	" ./Simulation border_thick=12 background_color=1200ff darkening=no window_width=1200 window_height=920\n"\
 	" ./Simulation --help\n\n"\
 	"Controls:\n\n"\
+	"Stop/Resume                     <Space>\n"\
 	"Slow down                       <H>\n"\
 	"Accelerate                      <J>\n"\
 	"Reset                           <R>\n"\
