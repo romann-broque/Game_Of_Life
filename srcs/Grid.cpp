@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 22:40:23 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:37:45 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void Grid::initCellGrids() {
 			cell.setScreenPosition(posX, posY);
 			cell.setCellStateColor(FOOD, foodColor);
 			cell.setCellStateColor(ALIVE, cellColor);
-			cell.setState(lifeProba);
+			cell.initState(lifeProba);
 			row.push_back(cell);
 		}
 		grid.push_back(row);

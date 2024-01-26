@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 22:56:12 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:48:11 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,22 @@ void Cell::setState(const t_state newState) {
 	_state = newState;
 }
 
-void Cell::setState(const unsigned char lifeProba) {
+void Cell::initState(const unsigned char lifeProba) {
 
 	std::random_device rd; // Will be used to obtain a seed for the random number engine
 	std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 	std::uniform_int_distribution<> distrib(1, 100);
 
-	const int randomNumber = distrib(gen);
-	if (randomNumber <= lifeProba)
+	const unsigned int randomNumber = distrib(gen);
+	if (randomNumber <= lifeProba) {
 		_state = ALIVE;
-	else if (_foodPresence && randomNumber > 80)
+	}
+	else if (_foodPresence && randomNumber <= _foodProba)
 		_state = FOOD;
 	else
 		_state = DEAD;
+	_nextState = _state;
+	update();
 }
 
 void Cell::toggleState() {
@@ -105,9 +108,11 @@ void Cell::toggleState() {
 		_state = DEAD;
 		_nextState = DEAD;
 	}
-	else if (_state == DEAD) {
+	else {
 		_state = ALIVE;
 		_nextState = ALIVE;
+		if (_age == 0)
+			setCellColor(_initColor);
 	}
 }
 
@@ -162,8 +167,8 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 }
 
 void Cell::lifeRoutine() {
-	if ((_foodPresence && _foodCount < 1) && (_livingCount < 2 || _livingCount > 3))
-		setNextState(DEAD);
+	if (_foodPresence && _foodCount > 3)
+		setNextState(ALIVE);
 	else if (_livingCount < 2 || _livingCount > 3)
 		setNextState(DEAD);
 	else
@@ -180,7 +185,7 @@ void Cell::foodRoutine() {
 void Cell::deadRoutine() {
 	if (_livingCount == 3 || (_foodPresence && _foodCount > 2))
 		setNextState(ALIVE);
-	else if (_foodPresence && (_deadCount == 6 || _deadCount == 8 || _foodCount >= 5))
+	else if (_foodPresence && _foodCount >= 2 && _deadCount >= 5 )
 		setNextState(FOOD);
 	else
 		setNextState(DEAD);

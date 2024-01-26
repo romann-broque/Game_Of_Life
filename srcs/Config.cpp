@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:41:34 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:47:03 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{CELL_COLOR_NAME, CELL_COLOR},
 	{DARKENING_NAME, DARKENING},
 	{FOOD_NAME, FOOD_PRESENCE},
-	{FOOD_COLOR_NAME, FOOD_COLOR}
+	{FOOD_COLOR_NAME, FOOD_COLOR},
+	{FOOD_PROBA_NAME, FOOD_PROBA}
 };
 std::vector<sf::Vector2i> Config::_mousePos;
 

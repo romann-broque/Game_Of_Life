@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 22:44:43 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:50:33 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 
 #define LIFE_PROBA			30 // in percentage
 #define FOOD_PRESENCE		0
+#define FOOD_PROBA			10 // in percentage
 
 // Parameters name //
 
@@ -52,7 +53,7 @@
 #define GRID_WIDTH_NAME "grid_width"
 #define GRID_HEIGHT_NAME "grid_height"
 #define CELL_SIZE_NAME "cell_size"
-#define LIFE_PROBA_NAME "life"
+#define LIFE_PROBA_NAME "life_proba"
 #define BORDER_THICK_NAME "border_thick"
 #define BORDER_COLOR_NAME "border_color"
 #define BACKGROUND_COLOR_NAME "background_color"
@@ -60,6 +61,7 @@
 #define DARKENING_NAME "darkening"
 #define FOOD_NAME "food"
 #define FOOD_COLOR_NAME "food_color"
+#define FOOD_PROBA_NAME "food_proba"
 
 // STRING //
 
@@ -77,10 +79,11 @@
 	" --" DARKENING_NAME "        =<yes|no>            [default:yes]\n\n"\
 	" --" FOOD_NAME "             =<yes|no>            [default:no]\n\n"\
 	" --" FOOD_COLOR_NAME "       =<hexadecimal_value> [default:ff0000]\n\n"\
+	" --" FOOD_PROBA_NAME "       =<percentage>        [default:10]\n\n"\
 	" --" GRID_WIDTH_NAME "       =<cells_nb>          [default:100]\n\n"\
 	" --" GRID_HEIGHT_NAME "      =<cells_nb>          [default:100]\n\n"\
 	" -h, --help         Display this help message and exit\n\n"\
-	" --" LIFE_PROBA_NAME "             =<percentage>        [default:30]\n\n"\
+	" --" LIFE_PROBA_NAME "       =<percentage>        [default:30]\n\n"\
 	" --" WINDOW_WIDTH_NAME "     =<pixels_nb>         [default:1920]\n\n"\
 	" --" WINDOW_HEIGHT_NAME "    =<pixels_nb>         [default:1080]\n\n"\
 	"Examples:\n\n"\
