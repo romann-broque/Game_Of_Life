@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:24:39 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:59:35 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ std::map<std::string, unsigned int> Config::_argNb = {
 };
 
 // Static methods
+
+bool startsWithDoubleDash(const std::string& str) {
+    return str.compare(0, 2, "--") == 0;
+}
 
 static bool isValidUnsignedInt(const std::string& str) {
 
@@ -79,6 +83,9 @@ void Config::init(char **av) {
 			throw InvalidFormatException();
 
 		std::string key = arg.substr(0, pos);
+		if (startsWithDoubleDash(key) == false)
+			throw InvalidFormatException();
+		key = key.substr(2);
 		if (_argNb.find(key) == _argNb.end()) {
 			throw InvalidParameterException();
 		}

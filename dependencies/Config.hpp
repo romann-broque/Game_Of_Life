@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:25:05 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:38:04 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@
 
 #include <SFML/Graphics.hpp>
 #include "Defines.hpp"
-
-// Parameters name //
-
-#define WINDOW_WIDTH_NAME "window_width"
-#define WINDOW_HEIGHT_NAME "window_height"
-#define GRID_WIDTH_NAME "grid_width"
-#define GRID_HEIGHT_NAME "grid_height"
-#define CELL_SIZE_NAME "cell_size"
-#define LIFE_PROBA_NAME "life"
-#define BORDER_THICK_NAME "border_thick"
-#define BORDER_COLOR_NAME "border_color"
-#define BACKGROUND_COLOR_NAME "background_color"
-#define CELL_COLOR_NAME "cell_color"
 
 // Error Messages //
 
