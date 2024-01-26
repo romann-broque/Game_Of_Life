@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:28:10 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:40:21 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,17 @@ void Cell::setScreenPosition(const float screenX, const float screenY) {
 }
 
 void Cell::setCellColor(const sf::Color color) {
-	_color = color;
-	_cellScreen.setFillColor(_color);
+	setCellStateColor(_state, color);
+}
+
+
+void Cell::setCellStateColor(const t_state state, const sf::Color color) {
+
+	if (state == ALIVE) {
+		_color = color;
+	} else if (state == FOOD)
+		_foodColor = color;
+	_cellScreen.setFillColor(color);
 }
 
 void Cell::changeBrightness(const int lightFactor) {
@@ -114,7 +123,7 @@ void Cell::update() {
 			setCellColor(_initColor);
 	} else if (_state == FOOD) {
 		_age = 0;
-		setCellColor(sf::Color::Red);
+		setCellColor(_foodColor);
 	}
 }
 

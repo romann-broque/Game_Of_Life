@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:26:27 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:41:34 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{BACKGROUND_COLOR_NAME, BACKGROUND_COLOR},
 	{CELL_COLOR_NAME, CELL_COLOR},
 	{DARKENING_NAME, DARKENING},
-	{FOOD_NAME, FOOD_PRESENCE}
+	{FOOD_NAME, FOOD_PRESENCE},
+	{FOOD_COLOR_NAME, FOOD_COLOR}
 };
 std::vector<sf::Vector2i> Config::_mousePos;
 
@@ -69,7 +70,8 @@ static bool isHexadecimal(const std::string& str) {
 static bool isHexKey(const std::string& key) {
 	return key == BACKGROUND_COLOR_NAME
 	|| key == BORDER_COLOR_NAME
-	|| key == CELL_COLOR_NAME;
+	|| key == CELL_COLOR_NAME
+	|| key == FOOD_COLOR_NAME;
 }
 
 // Public methods

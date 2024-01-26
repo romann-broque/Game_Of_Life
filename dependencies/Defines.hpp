@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:29:09 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:43:04 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define BACKGROUND_COLOR 0x0000ff
 #define BORDER_COLOR	 0x0000ff
 #define CELL_COLOR		 0xffffff
+#define FOOD_COLOR		 0xff0000
 #define DARK_FACTOR		 -5
 #define MIN_COLOR_COMP	10
 #define MAX_COLOR_COMP	256
@@ -58,6 +59,7 @@
 #define CELL_COLOR_NAME "cell_color"
 #define DARKENING_NAME "darkening"
 #define FOOD_NAME "food"
+#define FOOD_COLOR_NAME "food_color"
 
 // STRING //
 
@@ -74,6 +76,7 @@
 	" --" CELL_SIZE_NAME "        =<pixels_nb>         [default:5]\n\n"\
 	" --" DARKENING_NAME "        =<yes|no>            [default:yes]\n\n"\
 	" --" FOOD_NAME "             =<yes|no>            [default:yes]\n\n"\
+	" --" FOOD_COLOR_NAME "       =<hexadecimal_value> [default:ff0000]\n\n"\
 	" --" GRID_WIDTH_NAME "       =<cells_nb>          [default:100]\n\n"\
 	" --" GRID_HEIGHT_NAME "      =<cells_nb>          [default:100]\n\n"\
 	" -h, --help         Display this help message and exit\n\n"\

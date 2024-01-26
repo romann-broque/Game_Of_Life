@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 16:44:55 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:37:13 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void Grid::initColors() {
 	backgroundColor = hexToRgb(Config::getParameterVal(BACKGROUND_COLOR_NAME));
 	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
 	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
+	foodColor = hexToRgb(Config::getParameterVal(FOOD_COLOR_NAME));
 }
 
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
@@ -145,7 +146,8 @@ void Grid::initCellGrids() {
 			const float posY = i * cellSize + topLeftY;
 			Cell cell(cellSize, cellColor);
 			cell.setScreenPosition(posX, posY);
-			cell.setCellColor(cellColor);
+			cell.setCellStateColor(ALIVE, cellColor);
+			cell.setCellStateColor(FOOD, foodColor);
 			cell.setState(lifeProba);
 			row.push_back(cell);
 		}

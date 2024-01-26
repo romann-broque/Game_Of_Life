@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:25:47 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:39:43 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Cell {
 		// Setters
 		void setScreenPosition(const float screenX, const float screenY);
 		void setCellColor(const sf::Color color);
+		void setCellStateColor(const t_state state, const sf::Color color);
 		void setState(const t_state newState);
 		void setNextState(const t_state newState);
 		void setState(const unsigned char lifeProba);
@@ -49,9 +50,10 @@ class Cell {
 		// Attributes
 		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
 		const bool			_foodPresence = Config::getParameterVal(FOOD_NAME);
-		sf::RectangleShape _cellScreen;
+		sf::RectangleShape	_cellScreen;
 		sf::Color			_initColor;
 		sf::Color			_color;
+		sf::Color			_foodColor;
 		t_state 			_state;
 		t_state 			_nextState;
 		size_t				_age;
