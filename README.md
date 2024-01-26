@@ -50,6 +50,7 @@ To run the Game of Life project, follow these steps:
 - **Spacebar**: Start/Stop the simulation.
 - **H/J**: Slow down/Accelerate the simulation.
 - **R**: Reset the simulation.
+- **Left Click**: Toggle life/death of cell.
 
 ### 🛠️ Options
 
