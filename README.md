@@ -24,22 +24,53 @@ To run the Game of Life project, follow these steps:
 
 1. **Install SFML**: Ensure the SFML library is installed on your system. Refer to the [SFML installation guide](https://www.sfml-dev.org/) for your platform.
 
+    #### Linux
+
     ```shell
     sudo apt-get install libsfml-dev
     ```
 
+    #### MacOS
+
+    ```shell
+    brew install sfml
+    ```
+
 2. **Build and Run**:
- 
+
    ```shell
    make
    ./Simulation
    ```
+
+![](file/GameOfLife.gif)
 
 ### 🕹️ Controls
 
 - **Spacebar**: Start/Stop the simulation.
 - **H/J**: Slow down/Accelerate the simulation.
 - **R**: Reset the simulation.
+
+### 🛠️ Options
+
+It is possible to specify certain option values:
+
+- **Probability of life**
+- **Window dimensions**
+- **Grid dimensions**
+- **Cell size**
+- **Cell color**
+- **Background color**
+- **Border thickness**
+- **Border color**
+
+For more information:
+
+```shell
+./Simulation -h
+# or
+./Simulation --help
+```
 
 ### 🎨 Additional Information
 
