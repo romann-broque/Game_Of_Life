@@ -55,14 +55,15 @@ To run the Game of Life project, follow these steps:
 
 It is possible to specify certain option values:
 
+- **Background color**
+- **Border color**
+- **Border thickness**
+- **Cell color**
+- **Cell size**
+- **Darkening**
+- **Grid dimensions**
 - **Probability of life**
 - **Window dimensions**
-- **Grid dimensions**
-- **Cell size**
-- **Cell color**
-- **Background color**
-- **Border thickness**
-- **Border color**
 
 For more information:
 
