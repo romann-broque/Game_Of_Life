@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 14:05:38 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 14:34:57 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void Grid::toggleCells() {
 	for (std::vector<sf::Vector2i>::const_iterator it = mousePos.begin();
 	it != mousePos.end(); ++it) {
 		const sf::Vector2f worldPos = window.mapPixelToCoords(*it);
-		const float gridX = (worldPos.x - topLeftX) / (float)cellSize;
-		const float gridY = (worldPos.y - topLeftY) / (float)cellSize;
+		const size_t gridX = (worldPos.x - topLeftX) / cellSize;
+		const size_t gridY = (worldPos.y - topLeftY) / cellSize;
 		if (isInGridScreen(gridX, gridY)) {
 			grid[gridY][gridX].toggleState();
 			grid[gridY][gridX].draw(window);
@@ -163,5 +163,5 @@ void Grid::resetCellGrid() {
 }
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
-    return x >= 0 && x < width && y >= 0 && y < height;
+    return x < width && y < height;
 }
