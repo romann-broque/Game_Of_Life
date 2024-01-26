@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 17:40:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 21:22:08 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void Cell::setScreenPosition(const float screenX, const float screenY) {
 void Cell::setCellColor(const sf::Color color) {
 	setCellStateColor(_state, color);
 }
-
 
 void Cell::setCellStateColor(const t_state state, const sf::Color color) {
 
@@ -114,6 +113,8 @@ void Cell::toggleState() {
 
 void Cell::update() {
 	if (_state == ALIVE) {
+		if (_age == 0)
+			setCellColor(_initColor);
 		++_age;
 		if (_darkening)
 			changeBrightness(DARK_FACTOR);
@@ -173,7 +174,7 @@ void Cell::foodRoutine() {
 }
 
 void Cell::deadRoutine() {
-	if (_foodPresence && (_deadCount == 6 || _deadCount == 8))
+	if (_foodPresence && (_deadCount == 6 || _deadCount == 8 || _foodCount >= 5))
 		setNextState(FOOD);
 	else if (_livingCount == 3 || _foodCount > 2)
 		setNextState(ALIVE);
