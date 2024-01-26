@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:47:40 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 09:50:14 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 	" --" GRID_HEIGHT_NAME "      =<cells_nb>          [default:100]\n\n"\
 	" -h, --help         Display this help message and exit\n\n"\
 	" --" LIFE_PROBA_NAME "             =<percentage>        [default:20]\n\n"\
-	" --" WINDOW_WIDTH_NAME "     =<pixels_nb>         [default:]\n\n"\
+	" --" WINDOW_WIDTH_NAME "     =<pixels_nb>         [default:1920]\n\n"\
 	" --" WINDOW_HEIGHT_NAME "    =<pixels_nb>         [default:1080]\n\n"\
 	"Examples:\n\n"\
 	" ./Simulation\n"\
