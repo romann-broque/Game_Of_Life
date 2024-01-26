@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:31:18 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:11:08 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,17 @@ void Cell::setState(const unsigned char lifeProba) {
 
 	const int randomNumber = distrib(gen);
 	_state = randomNumber <= lifeProba ? ALIVE : DEAD;
+}
+
+void Cell::toggleState() {
+	if (_state == ALIVE) {
+		_state = DEAD;
+		_nextState = DEAD;
+	}
+	else if (_state == DEAD) {
+		_state = ALIVE;
+		_nextState = ALIVE;
+	}
 }
 
 void Cell::update() {

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:38:04 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:30:12 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <exception>
 #include <sstream>
 #include <iomanip>
@@ -41,10 +42,14 @@ class Config {
 		static void accelerateTime();
 		static void reset();
 		static void setResetState(const bool newState);
+		static void addMousePos(const sf::Vector2i &mousePos);
+		static void clearMousePos();
 		// Getters
 		static bool isPaused();
 		static bool isReset();
 		static size_t getTickTime();
+		static std::vector<sf::Vector2i> getMousePos();
+		static bool isEmptyMousePos();
 		static unsigned int getParameterVal(const std::string &paramName);
 		// Exceptions
 		class InvalidFormatException : public std::exception {};
@@ -56,6 +61,7 @@ class Config {
 		static bool _isPaused;
 		static bool _isReset;
 		static size_t _tickTime;
+		static std::vector<sf::Vector2i> _mousePos;
 		static std::map<std::string, unsigned int> _argNb;
 
 		static void associateValueToKey(const std::string &key, const std::string &value);

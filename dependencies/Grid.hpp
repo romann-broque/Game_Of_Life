@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:11:29 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:28:47 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Grid {
 		void display_background();
 		void display_grid();
 		void display();
+		void toggleCells();
 		~Grid();
 
 	private:
@@ -56,4 +57,5 @@ class Grid {
 		void resetCellGrid();
 		void updateCell(Cell &cell, const size_t i, const size_t j);
 		std::vector<Cell> getSurroundingLivingCells(const size_t i, const size_t j);
+		bool isInGridScreen(const size_t x, const size_t y);
 };

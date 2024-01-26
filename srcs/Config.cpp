@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:25:07 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:29:58 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{CELL_COLOR_NAME, CELL_COLOR},
 	{DARKENING_NAME, DARKENING}
 };
+std::vector<sf::Vector2i> Config::_mousePos;
 
 // Static methods
 
@@ -90,7 +91,7 @@ void Config::init(char **av) {
 		if (_argNb.find(key) == _argNb.end()) {
 			throw InvalidParameterException();
 		}
-		std::string value = arg.substr(pos + 1);
+		const std::string value = arg.substr(pos + 1);
 		associateValueToKey(key, value);
 		++i;
 	}
@@ -122,6 +123,14 @@ void Config::accelerateTime() {
 		_tickTime /= TIME_FACTOR;
 }
 
+void Config::addMousePos(const sf::Vector2i &mousePos) {
+	_mousePos.push_back(mousePos);
+}
+
+void Config::clearMousePos() {
+	_mousePos.clear();
+}
+
 // Getters
 
 bool Config::isPaused() {
@@ -134,6 +143,14 @@ bool Config::isReset() {
 
 size_t Config::getTickTime() {
 	return _tickTime;
+}
+
+std::vector<sf::Vector2i> Config::getMousePos() {
+	return _mousePos;
+}
+
+bool Config::isEmptyMousePos() {
+	return _mousePos.size() == 0;
 }
 
 unsigned int Config::getParameterVal(const std::string &paramName) {

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:31:07 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 10:48:55 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ class Cell {
 		void setState(const t_state newState);
 		void setNextState(const t_state newState);
 		void setState(const unsigned char lifeProba);
+		void toggleState();
 		// Getters
 		bool isAlive() const;
 		size_t getAge() const;

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 02:12:07 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 11:28:29 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,58 @@ void Grid::display() {
 
 Grid::~Grid() {}
 
-// Private methods
+void Grid::toggleCells() {
+	const std::vector<sf::Vector2i> mousePos = Config::getMousePos();
+
+	for (std::vector<sf::Vector2i>::const_iterator it = mousePos.begin();
+	it != mousePos.end(); ++it) {
+		const sf::Vector2f worldPos = window.mapPixelToCoords(*it);
+		if (isInGridScreen(worldPos.x, worldPos.y)) {
+			const float gridX = (worldPos.x - topLeftX) / (float)cellSize;
+			const float gridY = (worldPos.y - topLeftY) / (float)cellSize;
+			grid[gridY][gridX].toggleState();
+			grid[gridY][gridX].draw(window);
+		}
+	}
+}
+
+// Private
+
+void Grid::initColors() {
+
+	backgroundColor = hexToRgb(Config::getParameterVal(BACKGROUND_COLOR_NAME));
+	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
+	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
+}
+
+void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
+	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
+	const size_t livingCellCount = livingCells.size();
+
+	if (livingCellCount < 2 || livingCellCount > 3) {
+		cell.setNextState(DEAD);
+	} else if (cell.isAlive() == false && livingCellCount == 3) {
+		cell.setNextState(ALIVE);
+	}
+}
+
+std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y) {
+
+	const std::vector<std::pair<int, int>> directions
+		= {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+	std::vector<Cell> surroundingCells;
+
+	for (std::vector<std::pair<int, int>>::const_iterator it = directions.begin();
+		it != directions.end(); ++it) {
+		const int newX = x + it->first;
+		const int newY = y + it->second;
+		const size_t finalX = (newX + width) % width;
+		const size_t finalY = (newY + height) % height;
+		if (grid[finalY][finalX].isAlive())
+			surroundingCells.push_back(grid[finalY][finalX]);
+	}
+	return surroundingCells;
+}
 
 void Grid::initCellGrids() {
 
@@ -110,40 +161,8 @@ void Grid::resetCellGrid() {
 	grid = init_grid;
 }
 
-std::vector<Cell> Grid::getSurroundingLivingCells(const size_t x, const size_t y) {
+bool Grid::isInGridScreen(const size_t x, const size_t y) {
 
-	const std::vector<std::pair<int, int>> directions
-		= {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-	std::vector<Cell> surroundingCells;
-
-	for (std::vector<std::pair<int, int>>::const_iterator it = directions.begin();
-		it != directions.end(); ++it) {
-		const int newX = x + it->first;
-		const int newY = y + it->second;
-		const size_t finalX = (newX + width) % width;
-		const size_t finalY = (newY + height) % height;
-		if (grid[finalY][finalX].isAlive())
-			surroundingCells.push_back(grid[finalY][finalX]);
-	}
-	return surroundingCells;
-}
-
-void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
-	const std::vector<Cell> livingCells = getSurroundingLivingCells(x, y);
-	const size_t livingCellCount = livingCells.size();
-
-	if (livingCellCount < 2 || livingCellCount > 3) {
-		cell.setNextState(DEAD);
-	} else if (cell.isAlive() == false && livingCellCount == 3) {
-		cell.setNextState(ALIVE);
-	}
-}
-
-// Private
-
-void Grid::initColors() {
-
-	backgroundColor = hexToRgb(Config::getParameterVal(BACKGROUND_COLOR_NAME));
-	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
-	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
+	return x > topLeftX && x < topLeftX + width * CELL_SIZE
+	&& y > topLeftY && y < topLeftY + height * CELL_SIZE;
 }

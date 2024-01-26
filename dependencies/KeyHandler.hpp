@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/25 17:24:27 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/26 10:39:58 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Config.hpp"
-#include <queue>
 
 typedef void (*FunctionType)();
 
@@ -29,7 +28,7 @@ class KeyHandler {
 
 	private:
 		// Attributes
-		sf::RenderWindow& _window;
+		sf::RenderWindow &_window;
 		bool _keys[sf::Keyboard::KeyCount];
 		std::map<sf::Keyboard::Key, FunctionType> _keyBindingMap;
 
