@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 00:47:03 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:28:22 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ std::map<std::string, unsigned int> Config::_argNb = {
 	{DARKENING_NAME, DARKENING},
 	{FOOD_NAME, FOOD_PRESENCE},
 	{FOOD_COLOR_NAME, FOOD_COLOR},
-	{FOOD_PROBA_NAME, FOOD_PROBA}
+	{FOOD_PROBA_NAME, FOOD_PROBA},
+	{CYCLE_NAME, CYCLE},
+	{CELL_LIFETIME_NAME, CELL_LIFETIME}
 };
 std::vector<sf::Vector2i> Config::_mousePos;
 
@@ -169,7 +171,7 @@ void Config::associateValueToKey(const std::string &key, const std::string &valu
 
 	unsigned int numericValue;
 
-	if (key == DARKENING_NAME || key == FOOD_NAME) {
+	if (key == DARKENING_NAME || key == FOOD_NAME || key == CYCLE_NAME) {
 		if (value != "yes" && value != "no")
 			throw InvalidValueException();
 		numericValue = (value == "yes");
@@ -186,7 +188,7 @@ void Config::associateValueToKey(const std::string &key, const std::string &valu
 }
 void Config::assignValueToKey(const std::string &key, const unsigned int value) {
 
-	if (key == LIFE_PROBA_NAME && value > 100)
+	if ((key == LIFE_PROBA_NAME || key == FOOD_PROBA_NAME) && value > 100)
 		throw InvalidValueException();
 	_argNb[key] = value;
 }

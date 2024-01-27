@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 00:48:11 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:30:01 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void Cell::initState(const unsigned char lifeProba) {
 	if (randomNumber <= lifeProba) {
 		_state = ALIVE;
 	}
-	else if (_foodPresence && randomNumber <= _foodProba)
+	else if (_foodPresence && randomNumber <= lifeProba + _foodProba)
 		_state = FOOD;
 	else
 		_state = DEAD;
@@ -169,6 +169,12 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 void Cell::lifeRoutine() {
 	if (_foodPresence && _foodCount > 3)
 		setNextState(ALIVE);
+	else if (_foodPresence && _age > _cellLifetime) {
+		if (_cycle)
+			setNextState(FOOD);
+		else
+			setNextState(DEAD);
+	}
 	else if (_livingCount < 2 || _livingCount > 3)
 		setNextState(DEAD);
 	else
@@ -176,17 +182,15 @@ void Cell::lifeRoutine() {
 }
 
 void Cell::foodRoutine() {
-	if (_livingCount >= 1)
+	if (_livingCount >= 2)
 		setNextState(DEAD);
 	else
 		setNextState(FOOD);
 }
 
 void Cell::deadRoutine() {
-	if (_livingCount == 3 || (_foodPresence && _foodCount > 2))
+	if (_livingCount == 3)
 		setNextState(ALIVE);
-	else if (_foodPresence && _foodCount >= 2 && _deadCount >= 5 )
-		setNextState(FOOD);
 	else
 		setNextState(DEAD);
 }

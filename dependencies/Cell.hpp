@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 00:47:42 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:27:53 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ class Cell {
 	private:
 		// Attributes
 		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
+		const bool			_cycle = Config::getParameterVal(CYCLE_NAME);
 		const bool			_foodPresence = Config::getParameterVal(FOOD_NAME);
 		const unsigned int	_foodProba = Config::getParameterVal(FOOD_PROBA_NAME);
+		const unsigned int	_cellLifetime = Config::getParameterVal(CELL_LIFETIME_NAME);
 		sf::RectangleShape	_cellScreen;
 		sf::Color			_initColor;
 		sf::Color			_color;

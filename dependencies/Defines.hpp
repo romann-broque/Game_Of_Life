@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 00:50:33 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:32:26 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 #define DEFAULT_TICK_TIME	100000 // in microsecondes
 #define TIME_FACTOR			10
 #define TICK_TIME_MAX		1000000
+#define CYCLE				0
+#define CELL_LIFETIME		15
 
 // DISTRIBUTION //
 
@@ -62,6 +64,8 @@
 #define FOOD_NAME "food"
 #define FOOD_COLOR_NAME "food_color"
 #define FOOD_PROBA_NAME "food_proba"
+#define CYCLE_NAME "cycle"
+#define CELL_LIFETIME_NAME "cell_lifetime"
 
 // STRING //
 
@@ -75,7 +79,9 @@
 	" --" BORDER_COLOR_NAME "     =<hexadecimal_value> [default:0x000FF]\n\n"\
 	" --" BORDER_THICK_NAME "     =<pixels_nb>         [default:1] \n\n" \
 	" --" CELL_COLOR_NAME "       =<hexadecimal_value> [default:FFFFFF]\n\n"\
+	" --" CELL_LIFETIME_NAME "    =<tick_nb>           [default:15]\n\n"\
 	" --" CELL_SIZE_NAME "        =<pixels_nb>         [default:5]\n\n"\
+	" --" CYCLE_NAME "            =<yes|no>            [default:no]\n\n"\
 	" --" DARKENING_NAME "        =<yes|no>            [default:yes]\n\n"\
 	" --" FOOD_NAME "             =<yes|no>            [default:no]\n\n"\
 	" --" FOOD_COLOR_NAME "       =<hexadecimal_value> [default:ff0000]\n\n"\
