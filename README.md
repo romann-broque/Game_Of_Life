@@ -20,26 +20,29 @@ The `Game of Life` is a classic cellular automaton simulation where each cell in
 
 To run the Game of Life project, follow these steps:
 
-1. **Install SFML**: Ensure the SFML library is installed on your system. Refer to the [SFML installation guide](https://www.sfml-dev.org/) for your platform.
+#### 1. **Install SFML**
 
-    #### Ubuntu:
+Ensure the SFML library is installed on your system. Refer to the [SFML installation guide](https://www.sfml-dev.org/) for your platform.
+
+*Ubuntu*:
+
+```shell
+sudo apt-get install libsfml-dev -y
+```
+
+*Fedora*:
+
+```shell
+sudo yum -y install SFML-devel
+```
    
-    ```shell
-    sudo apt-get install libsfml-dev -y
-    ```
+*MacOS*:
 
-   #### Fedora:
-   ```shell
-    sudo yum -y install SFML-devel
-   ```
-   
-    #### MacOS
+```shell
+brew install sfml
+```
 
-    ```shell
-    brew install sfml
-    ```
-
-3. **Build and Run**:
+#### 2. **Build and Run**
 
    ```shell
    make
