@@ -61,6 +61,8 @@ It is possible to specify certain option values:
 - **Border thickness**
 - **Cell color**
 - **Cell size**
+- **Cell lifetime**
+- **Cycle**
 - **Darkening**
 - **Food Color**
 - **Food Presence**
