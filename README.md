@@ -24,19 +24,24 @@ To run the Game of Life project, follow these steps:
 
 1. **Install SFML**: Ensure the SFML library is installed on your system. Refer to the [SFML installation guide](https://www.sfml-dev.org/) for your platform.
 
-    #### Linux
-
+    #### Ubuntu:
+   
     ```shell
     sudo apt-get install libsfml-dev
     ```
 
+   #### Fedora:
+   ```shell
+    sudo yum -y install SFML-devel
+   ```
+   
     #### MacOS
 
     ```shell
     brew install sfml
     ```
 
-2. **Build and Run**:
+3. **Build and Run**:
 
    ```shell
    make
@@ -62,7 +67,7 @@ It is possible to specify certain option values:
 - **Cell color**
 - **Cell size**
 - **Cell lifetime**
-- **Cycle**
+- **Food conversion**
 - **Darkening**
 - **Food Color**
 - **Food Presence**
