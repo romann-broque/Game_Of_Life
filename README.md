@@ -1,10 +1,8 @@
 ## Game of Life
 
-Welcome to the Game of Life, a fascinating cellular automaton simulation implemented in C++ using the SFML (Simple and Fast Multimedia Library). This project brings to life the rules of Conway's Game of Life, where cells evolve based on a set of simple rules.
-
 ### 🗺️ Project Overview
 
-The Game of Life is a classic cellular automaton simulation where each cell in a grid evolves over time based on its neighboring cells. The simulation follows specific rules, creating visually captivating patterns that emerge from seemingly simple interactions.
+The `Game of Life` is a classic cellular automaton simulation where each cell in a grid evolves over time based on its neighboring cells. The simulation follows specific rules, creating visually captivating patterns that emerge from seemingly simple interactions.
 
 ### 🌟 Key Features
 
