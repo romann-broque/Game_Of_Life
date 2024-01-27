@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:53 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 00:45:42 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:47:02 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int main(__attribute__((unused))int ac, char **av) {
 		std::cerr << INVALID_PARAMETER_MESSAGE << std::endl;
 	} catch (Config::InvalidValueException &e) {
 		std::cerr << INVALID_VALUE_MESSAGE << std::endl;
+	} catch (Config::OutOfWindowException &e) {
+		std::cerr << OUT_OF_WINDOW_MESSAGE << std::endl;
 	}
 	std::cerr << TYPE_HELP_MESSAGE << std::endl;
 	return EXIT_FAILURE;

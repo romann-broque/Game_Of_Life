@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 01:28:22 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:47:39 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void Config::init(char **av) {
 		associateValueToKey(key, value);
 		++i;
 	}
+	checkParameters();
 }
 
 // Setters
@@ -186,9 +187,17 @@ void Config::associateValueToKey(const std::string &key, const std::string &valu
 	}
 	assignValueToKey(key, numericValue);
 }
+
 void Config::assignValueToKey(const std::string &key, const unsigned int value) {
 
 	if ((key == LIFE_PROBA_NAME || key == FOOD_PROBA_NAME) && value > 100)
 		throw InvalidValueException();
 	_argNb[key] = value;
+}
+
+void Config::checkParameters() {
+
+	if (_argNb[WINDOW_HEIGHT_NAME] < _argNb[GRID_HEIGHT_NAME] * _argNb[CELL_SIZE_NAME]
+	|| _argNb[WINDOW_WIDTH_NAME] < _argNb[GRID_WIDTH_NAME] * _argNb[CELL_SIZE_NAME])
+		throw OutOfWindowException();
 }
