@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:27:23 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 02:40:03 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/27 02:400 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,30 +167,28 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 }
 
 void Cell::lifeRoutine() {
-	if (_foodPresence && _foodCount > 3)
-		setNextState(ALIVE);
-	else if (_foodPresence && _age > _cellLifetime) {
+	setNextState(ALIVE);
+	if (_foodPresence && _age > _cellLifetime) {
 		if (_foodConv)
 			setNextState(FOOD);
 		else
 			setNextState(DEAD);
-	}
+	} else if (_foodPresence && _foodCount > 0)
+		setNextState(ALIVE);
 	else if (_livingCount < 2 || _livingCount > 3)
 		setNextState(DEAD);
-	else
-		setNextState(ALIVE);
 }
 
 void Cell::foodRoutine() {
+	setNextState(FOOD);
 	if (_livingCount >= 2)
 		setNextState(DEAD);
-	else
-		setNextState(FOOD);
 }
 
 void Cell::deadRoutine() {
-	if (_livingCount == 3)
+	setNextState(DEAD);
+	if (_foodPresence && _foodCount > 5)
+		setNextState(FOOD);
+	else if (_livingCount == 3)
 		setNextState(ALIVE);
-	else
-		setNextState(DEAD);
 }
