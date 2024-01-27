@@ -27,7 +27,7 @@ To run the Game of Life project, follow these steps:
     #### Ubuntu:
    
     ```shell
-    sudo apt-get install libsfml-dev
+    sudo apt-get install libsfml-dev -y
     ```
 
    #### Fedora:
@@ -45,6 +45,7 @@ To run the Game of Life project, follow these steps:
 
    ```shell
    make
+   
    ./Simulation
    ```
 
