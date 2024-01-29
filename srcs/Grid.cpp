@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:53:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:20:39 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ static sf::Color hexToRgb(const unsigned int num) {
 }
 
 // Public methods
-
-Grid::Grid(sf::RenderWindow &window):
-	width(DEFAULT_SIZE),
-	height(DEFAULT_SIZE),
-	window(window) {
-
-	initColors();
-	initCellGrids();
-}
 
 Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
 	width(width),

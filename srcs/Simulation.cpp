@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:53:53 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:35:43 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ Simulation::Simulation():
 	_grid(_window,
 		Config::getParameterVal(GRID_WIDTH_NAME),
 		Config::getParameterVal(GRID_HEIGHT_NAME)),
-	_handler(_window) {
+	_handler(_window),
+	_state(RUNNING) {
 
 	sf::View view(_window.getDefaultView());
 	view.setCenter(sf::Vector2f(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f));
@@ -28,23 +29,18 @@ Simulation::Simulation():
 
 void Simulation::start() {
 
+	static const std::map<t_gameState, void (Simulation::*)()> mapState = {
+		{RUNNING, &Simulation::runningRoutine},
+		{PAUSED, &Simulation::pausedRoutine},
+		{RESET, &Simulation::resetRoutine},
+		{CLICKED, &Simulation::clickRoutine}
+	};
+
+
 	while (_window.isOpen()) {
+		(this->*(mapState.at(_state)))();
 		_handler.processEvents();
-		if (Config::isEmptyMousePos() == false) {
-			_grid.toggleCells();
-			refresh();
-		}
-		else if (Config::isPaused() == false) {
-			if (Config::isReset()) {
-				_grid.reset();
-				Config::setResetState(false);
-			} else {
-				_grid.update();
-			}
-			refresh();
-			wait();
-		}
-		Config::clearMousePos();
+		updateState();
 	}
 }
 
@@ -60,4 +56,38 @@ void Simulation::refresh() {
 void Simulation::wait() {
 
 	usleep(Config::getTickTime());
+}
+
+void Simulation::updateState() {
+	if (Config::isEmptyMousePos() == false) {
+		_state = CLICKED;
+	} else if (Config::isPaused()) {
+		_state = PAUSED;
+	} else if (Config::isReset()) {
+		_state = RESET;
+	} else {
+		_state = RUNNING;
+	}
+}
+
+
+void Simulation::runningRoutine() {
+	_grid.update();
+	refresh();
+	wait();
+}
+
+void Simulation::pausedRoutine() {
+
+}
+
+void Simulation::resetRoutine() {
+	_grid.reset();
+	Config::setResetState(false);
+}
+
+void Simulation::clickRoutine() {
+	_grid.toggleCells();
+	refresh();
+	Config::clearMousePos();
 }
