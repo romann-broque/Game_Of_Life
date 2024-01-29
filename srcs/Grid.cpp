@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 10:20:39 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 11:26:21 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static sf::Color hexToRgb(const unsigned int num) {
 // Public methods
 
 Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
-	width(width),
-	height(height),
+	_width(width),
+	_height(height),
 	window(window) {
 
 	initColors();
@@ -44,7 +44,7 @@ void Grid::reset() {
 
 void Grid::draw_background() {
 
-	sf::RectangleShape background(sf::Vector2f(width * cellSize, height * cellSize));
+	sf::RectangleShape background(sf::Vector2f(_width * cellSize, _height * cellSize));
 	background.setPosition(topLeftX, topLeftY);
 	background.setOutlineColor(borderColor); // Set the outline color
 	background.setOutlineThickness(borderThick); // Set the outline thickness
@@ -54,9 +54,12 @@ void Grid::draw_background() {
 
 void Grid::draw_grid() {
 
-	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j) {
-			grid[i][j].draw(window);
+	for (size_t i = 0; i < _height; ++i) {
+		for (size_t j = 0; j < _width; ++j) {
+			const Cell cell = grid[i][j];
+			if (cell.canBeDrawn()) {
+				drawCell(j, i);
+			}
 		}
 	}
 }
@@ -76,7 +79,7 @@ void Grid::toggleCells() {
 		const size_t gridY = (worldPos.y - topLeftY) / cellSize;
 		if (isInGridScreen(gridX, gridY)) {
 			grid[gridY][gridX].toggleState();
-			grid[gridY][gridX].draw(window);
+			drawCell(gridX, gridY);
 		}
 	}
 }
@@ -89,6 +92,16 @@ void Grid::initColors() {
 	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
 	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
 	foodColor = hexToRgb(Config::getParameterVal(FOOD_COLOR_NAME));
+}
+
+void Grid::drawCell(const size_t x, const size_t y) {
+	const Cell cell = grid[y][x];
+	const float posX = x * cellSize + topLeftX;
+	const float posY = y * cellSize + topLeftY;
+	sf::RectangleShape	cellScreen(sf::Vector2f(cellSize, cellSize));
+	cellScreen.setFillColor(cell.getColor());
+	cellScreen.setPosition(posX, posY);
+	window.draw(cellScreen);
 }
 
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
@@ -110,8 +123,8 @@ std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
 		it != directions.end(); ++it) {
 		const int newX = x + it->first;
 		const int newY = y + it->second;
-		const size_t finalX = (newX + width) % width;
-		const size_t finalY = (newY + height) % height;
+		const size_t finalX = (newX + _width) % _width;
+		const size_t finalY = (newY + _height) % _height;
 		surroundingCells.push_back(grid[finalY][finalX]);
 	}
 	return surroundingCells;
@@ -119,13 +132,10 @@ std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
 
 void Grid::initCellGrids() {
 
-	for (size_t i = 0; i < height; ++i) {
+	for (size_t i = 0; i < _height; ++i) {
 		std::vector<Cell> row;
-		for (size_t j = 0; j < width; ++j) {
-			const float posX = j * cellSize + topLeftX;
-			const float posY = i * cellSize + topLeftY;
-			Cell cell(cellSize, cellColor);
-			cell.setScreenPosition(posX, posY);
+		for (size_t j = 0; j < _width; ++j) {
+			Cell cell( cellColor);
 			cell.setCellStateColor(FOOD, foodColor);
 			cell.setCellStateColor(ALIVE, cellColor);
 			cell.initState(lifeProba);
@@ -138,16 +148,16 @@ void Grid::initCellGrids() {
 
 void Grid::preArrange() {
 
-	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j) {
+	for (size_t i = 0; i < _height; ++i) {
+		for (size_t j = 0; j < _width; ++j) {
 			updateCell(grid[i][j], j, i);
 		}
 	}
 }
 
 void Grid::arrange() {
-	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j)
+	for (size_t i = 0; i < _height; ++i) {
+		for (size_t j = 0; j < _width; ++j)
 			grid[i][j].refresh();
 	}
 }
@@ -157,7 +167,7 @@ void Grid::resetCellGrid() {
 }
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
-    return x < width && y < height;
+	return x < _width && y < _height;
 }
 
 size_t Grid::countStateCells(const std::vector<Cell> &surroundingCells, const t_state state) {

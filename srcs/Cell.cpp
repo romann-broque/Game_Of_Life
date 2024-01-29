@@ -24,9 +24,9 @@ static unsigned char newColorComponentBrightness(const unsigned char color, cons
 
 // Constructor
 
-Cell::Cell(const size_t cellSize, const sf::Color &color):
-	_cellScreen(sf::Vector2f(cellSize, cellSize)),
-	_initColor(color), _color(color), _state(ALIVE), _nextState(ALIVE),
+Cell::Cell(const sf::Color &color):
+	_color(color), _initColor(color), _lifeColor(_color), _foodColor(_color),
+	_state(ALIVE), _nextState(ALIVE),
 	_age(0), _livingCount(0), _foodCount(0), _deadCount(0) {
 
 	setCellColor(_color);
@@ -34,7 +34,6 @@ Cell::Cell(const size_t cellSize, const sf::Color &color):
 
 Cell &Cell::operator=(const Cell &cell) {
 	this->_state = cell._state;
-	this->_cellScreen = cell._cellScreen;
 	this->_age = cell._age;
 	return *this;
 }
@@ -45,31 +44,15 @@ Cell::~Cell() {}
 
 // Setters
 
-void Cell::setScreenPosition(const float screenX, const float screenY) {
-	_cellScreen.setPosition(screenX, screenY);
-}
-
-void Cell::setCellColor(const sf::Color color) {
-	setCellStateColor(_state, color);
-}
-
-void Cell::setCellStateColor(const t_state state, const sf::Color color) {
+void Cell::setCellStateColor(const t_state state, const sf::Color newColor) {
 
 	if (state == ALIVE) {
-		_color = color;
-	} else if (state == FOOD)
-		_foodColor = color;
-	_cellScreen.setFillColor(color);
-}
-
-void Cell::changeBrightness(const int lightFactor) {
-
-	sf::Color newColor = _color;
-
-	newColor.r = newColorComponentBrightness(newColor.r, lightFactor);
-	newColor.g = newColorComponentBrightness(newColor.g, lightFactor);
-	newColor.b = newColorComponentBrightness(newColor.b, lightFactor);
-	setCellColor(newColor);
+		_lifeColor = newColor;
+		_color = newColor;
+	} else if (state == FOOD) {
+		_foodColor = newColor;
+		_color = newColor;
+	}
 }
 
 void Cell::refresh() {
@@ -81,10 +64,6 @@ void Cell::setNextState(const t_state newState) {
 	_nextState = newState;
 }
 
-void Cell::setState(const t_state newState) {
-	_state = newState;
-}
-
 void Cell::initState(const unsigned char lifeProba) {
 
 	std::random_device rd; // Will be used to obtain a seed for the random number engine
@@ -94,11 +73,11 @@ void Cell::initState(const unsigned char lifeProba) {
 	const unsigned int randomNumber = distrib(gen);
 	if (randomNumber <= lifeProba) {
 		_state = ALIVE;
-	}
-	else if (_foodPresence && randomNumber <= lifeProba + _foodProba)
+	} else if (_foodPresence && randomNumber <= lifeProba + _foodProba) {
 		_state = FOOD;
-	else
+	} else {
 		_state = DEAD;
+	}
 	_nextState = _state;
 	update();
 }
@@ -116,41 +95,21 @@ void Cell::toggleState() {
 	}
 }
 
-void Cell::update() {
-	if (_state == ALIVE) {
-		if (_age == 0)
-			setCellColor(_initColor);
-		++_age;
-		if (_darkening)
-			changeBrightness(DARK_FACTOR);
-	} else if (_state == DEAD) {
-		_age = 0;
-	} else if (_state == FOOD) {
-		_age = 0;
-		setCellColor(_foodColor);
-	}
-}
-
 // Getters
-
-bool Cell::isAlive() const {
-	return _state == ALIVE;
-}
 
 t_state Cell::getState() const {
 	return _state;
 }
 
-size_t Cell::getAge() const {
-	return _age;
+sf::Color Cell::getColor() const {
+	return _color;
+}
+
+bool Cell::canBeDrawn() const {
+	return (_state != DEAD);
 }
 
 // Actions
-
-void Cell::draw(sf::RenderWindow &window) {
-	if (_state != DEAD)
-		window.draw(_cellScreen);
-}
 
 void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t deadCount) {
 
@@ -165,6 +124,37 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 	_deadCount = deadCount;
 	_nextState = _state;
 	(this->*(mapState.at(_state)))();
+}
+
+// Private
+
+void Cell::setCellColor(const sf::Color color) {
+	setCellStateColor(_state, color);
+}
+
+void Cell::changeBrightness(const int lightFactor) {
+
+	sf::Color newColor = _color;
+
+	newColor.r = newColorComponentBrightness(newColor.r, lightFactor);
+	newColor.g = newColorComponentBrightness(newColor.g, lightFactor);
+	newColor.b = newColorComponentBrightness(newColor.b, lightFactor);
+	setCellColor(newColor);
+}
+
+void Cell::update() {
+	if (_state == ALIVE) {
+		if (_age == 0)
+			setCellColor(_initColor);
+		++_age;
+		if (_darkening)
+			changeBrightness(DARK_FACTOR);
+	} else if (_state == DEAD) {
+		_age = 0;
+	} else if (_state == FOOD) {
+		_age = 0;
+		setCellColor(_foodColor);
+	}
 }
 
 void Cell::lifeRoutine() {
