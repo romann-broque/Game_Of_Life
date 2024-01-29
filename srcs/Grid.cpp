@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:39:32 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:53:46 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,8 @@ Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
 
 void Grid::update() {
 
-	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j) {
-			updateCell(grid[i][j], j, i);
-		}
-	}
-	refresh();
-}
-
-void Grid::refresh() {
-	for (size_t i = 0; i < height; ++i) {
-		for (size_t j = 0; j < width; ++j)
-			grid[i][j].refresh();
-	}
+	preArrange();
+	arrange();
 }
 
 void Grid::reset() {
@@ -62,7 +51,7 @@ void Grid::reset() {
 	resetCellGrid();
 }
 
-void Grid::display_background() {
+void Grid::draw_background() {
 
 	sf::RectangleShape background(sf::Vector2f(width * cellSize, height * cellSize));
 	background.setPosition(topLeftX, topLeftY);
@@ -72,7 +61,7 @@ void Grid::display_background() {
 	window.draw(background);
 }
 
-void Grid::display_grid() {
+void Grid::draw_grid() {
 
 	for (size_t i = 0; i < height; ++i) {
 		for (size_t j = 0; j < width; ++j) {
@@ -81,9 +70,9 @@ void Grid::display_grid() {
 	}
 }
 
-void Grid::display() {
-	display_background();
-	display_grid();
+void Grid::draw() {
+	draw_background();
+	draw_grid();
 }
 
 void Grid::toggleCells() {
@@ -153,6 +142,22 @@ void Grid::initCellGrids() {
 		}
 		grid.push_back(row);
 		init_grid.push_back(row);
+	}
+}
+
+void Grid::preArrange() {
+
+	for (size_t i = 0; i < height; ++i) {
+		for (size_t j = 0; j < width; ++j) {
+			updateCell(grid[i][j], j, i);
+		}
+	}
+}
+
+void Grid::arrange() {
+	for (size_t i = 0; i < height; ++i) {
+		for (size_t j = 0; j < width; ++j)
+			grid[i][j].refresh();
 	}
 }
 

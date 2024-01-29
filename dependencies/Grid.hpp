@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:39:23 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:53:33 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ class Grid {
 		Grid(sf::RenderWindow &window);
 		Grid(sf::RenderWindow &window, const size_t width, const size_t height);
 		void update();
-		void refresh();
 		void reset();
-		void display_background();
-		void display_grid();
-		void display();
+		void draw_background();
+		void draw_grid();
+		void draw();
 		void toggleCells();
 
 	private:
@@ -54,6 +53,8 @@ class Grid {
 		// Methods
 		void initColors();
 		void initCellGrids();
+		void preArrange();
+		void arrange();
 		void resetCellGrid();
 		void updateCell(Cell &cell, const size_t i, const size_t j);
 		std::vector<Cell> getSurroundingCells(const size_t i, const size_t j);

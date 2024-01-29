@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:41:53 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:53:53 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void Simulation::start() {
 void Simulation::refresh() {
 
 	_window.clear(); // Clear the window
-	_grid.display();
+	_grid.draw();
 	_window.display(); // Display the contents of the window
 }
 
