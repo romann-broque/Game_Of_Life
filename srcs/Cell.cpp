@@ -163,11 +163,11 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 	_livingCount = livingCount;
 	_foodCount = foodCount;
 	_deadCount = deadCount;
+	_nextState = _state;
 	(this->*(mapState.at(_state)))();
 }
 
 void Cell::lifeRoutine() {
-	setNextState(ALIVE);
 	if (_foodPresence && _age > _cellLifetime) {
 		if (_foodConv)
 			setNextState(FOOD);
@@ -180,13 +180,11 @@ void Cell::lifeRoutine() {
 }
 
 void Cell::foodRoutine() {
-	setNextState(FOOD);
 	if (_livingCount >= 2)
 		setNextState(DEAD);
 }
 
 void Cell::deadRoutine() {
-	setNextState(DEAD);
 	if (_foodPresence && _foodCount > 5)
 		setNextState(FOOD);
 	else if (_livingCount == 3)
