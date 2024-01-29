@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:53 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 01:47:02 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:04:09 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,8 @@ int main(__attribute__((unused))int ac, char **av) {
 		Simulation game;
 		game.start();
 		return EXIT_SUCCESS;
-	} catch (Config::InvalidFormatException &e) {
-		std::cerr << INVALID_FORMAT_MESSAGE << std::endl;
-	} catch (Config::InvalidParameterException &e) {
-		std::cerr << INVALID_PARAMETER_MESSAGE << std::endl;
-	} catch (Config::InvalidValueException &e) {
-		std::cerr << INVALID_VALUE_MESSAGE << std::endl;
-	} catch (Config::OutOfWindowException &e) {
-		std::cerr << OUT_OF_WINDOW_MESSAGE << std::endl;
+	} catch (SimulationException &e) {
+		std::cerr << e.what()<< std::endl;
 	}
 	std::cerr << TYPE_HELP_MESSAGE << std::endl;
 	return EXIT_FAILURE;

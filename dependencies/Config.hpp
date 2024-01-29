@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:46:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 01:46:55 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:05:13 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Defines.hpp"
-
-// Error Messages //
-
-#define INVALID_FORMAT_MESSAGE "Invalid format"
-#define INVALID_PARAMETER_MESSAGE "Invalid parameter"
-#define INVALID_VALUE_MESSAGE "Invalid value"
-#define OUT_OF_WINDOW_MESSAGE \
-"Grid dimensions are too big compared to window's ones. \n\
-Look at " CELL_SIZE_NAME ", " GRID_WIDTH_NAME " or " GRID_HEIGHT_NAME " parameters."
+#include "SimulationException.hpp"
 
 class Config {
 
@@ -54,12 +46,6 @@ class Config {
 		static std::vector<sf::Vector2i> getMousePos();
 		static bool isEmptyMousePos();
 		static unsigned int getParameterVal(const std::string &paramName);
-		// Exceptions
-		class InvalidFormatException : public std::exception {};
-		class InvalidParameterException : public std::exception {};
-		class InvalidValueException : public std::exception {};
-		class InvalidParameterRequestException : public std::exception {};
-		class OutOfWindowException : public std::exception {};
 
 	private:
 		static bool _isPaused;

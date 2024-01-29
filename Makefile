@@ -38,6 +38,7 @@ HEADERS			+= Defines.hpp
 HEADERS			+= KeyHandler.hpp
 HEADERS			+= Grid.hpp
 HEADERS			+= Simulation.hpp
+HEADERS			+= SimulationException.hpp
 
 PATH_INC		+= -I dependencies/
 PATH_INC		+= -I /opt/homebrew/Cellar/sfml/2.6.1/include/
