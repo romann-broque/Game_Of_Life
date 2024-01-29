@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 11:26:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void Grid::draw() {
 }
 
 void Grid::toggleCells() {
-	const std::vector<sf::Vector2i> mousePos = Config::getMousePos();
+	const std::vector<sf::Vector2i> mousePos = UserInputs::getMousePos();
 
 	for (std::vector<sf::Vector2i>::const_iterator it = mousePos.begin();
 	it != mousePos.end(); ++it) {
@@ -88,10 +88,10 @@ void Grid::toggleCells() {
 
 void Grid::initColors() {
 
-	backgroundColor = hexToRgb(Config::getParameterVal(BACKGROUND_COLOR_NAME));
-	borderColor = hexToRgb(Config::getParameterVal(BORDER_COLOR_NAME));
-	cellColor = hexToRgb(Config::getParameterVal(CELL_COLOR_NAME));
-	foodColor = hexToRgb(Config::getParameterVal(FOOD_COLOR_NAME));
+	backgroundColor = hexToRgb(UserInputs::getParameterVal(BACKGROUND_COLOR_NAME));
+	borderColor = hexToRgb(UserInputs::getParameterVal(BORDER_COLOR_NAME));
+	cellColor = hexToRgb(UserInputs::getParameterVal(CELL_COLOR_NAME));
+	foodColor = hexToRgb(UserInputs::getParameterVal(FOOD_COLOR_NAME));
 }
 
 void Grid::drawCell(const size_t x, const size_t y) {

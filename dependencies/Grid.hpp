@@ -6,14 +6,14 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 11:24:48 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:28:48 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "Cell.hpp"
-#include "Config.hpp"
+// #include "Config.hpp"
 #include <unistd.h>
 #include <cmath>
 #include <vector>
@@ -36,9 +36,9 @@ class Grid {
 		// Attributes
 		const size_t _width;
 		const size_t _height;
-		const unsigned int borderThick = Config::getParameterVal(BORDER_THICK_NAME);
-		const unsigned int cellSize = Config::getParameterVal(CELL_SIZE_NAME);
-		const unsigned int lifeProba = Config::getParameterVal(LIFE_PROBA_NAME);
+		const unsigned int borderThick = UserInputs::getParameterVal(BORDER_THICK_NAME);
+		const unsigned int cellSize = UserInputs::getParameterVal(CELL_SIZE_NAME);
+		const unsigned int lifeProba = UserInputs::getParameterVal(LIFE_PROBA_NAME);
 		const float topLeftX = (WINDOW_WIDTH - _width * cellSize) / 2;
 		const float topLeftY = (WINDOW_HEIGHT - _height * cellSize) / 2;
 		sf::RenderWindow &window;

@@ -13,12 +13,12 @@ PATH_SRCS       += srcs/
 ### srcs/
 
 SRCS    += Cell.cpp
-SRCS    += Config.cpp
 SRCS    += KeyHandler.cpp
 SRCS    += Grid.cpp
 SRCS    += GameState.cpp
 SRCS    += main.cpp
 SRCS    += Simulation.cpp
+SRCS    += UserInputs.cpp
 
 vpath %.cpp $(PATH_SRCS)
 
@@ -34,13 +34,13 @@ OBJS			+= $(patsubst %.cpp, $(PATH_OBJS)/%.o, $(SRCS))
 ##################
 
 HEADERS			+= Cell.hpp
-HEADERS			+= Config.hpp
 HEADERS			+= Defines.hpp
 HEADERS			+= KeyHandler.hpp
 HEADERS			+= GameState.hpp
 HEADERS			+= Grid.hpp
 HEADERS			+= Simulation.hpp
 HEADERS			+= SimulationException.hpp
+HEADERS			+= UserInputs.hpp
 
 PATH_INC		+= -I dependencies/
 PATH_INC		+= -I /opt/homebrew/Cellar/sfml/2.6.1/include/

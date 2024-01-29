@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:53 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:04:09 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(__attribute__((unused))int ac, char **av) {
 		return EXIT_SUCCESS;
 	}
 	try {
-		Config::init(av + 1);
+		UserInputs::init(av + 1);
 		Simulation game;
 		game.start();
 		return EXIT_SUCCESS;

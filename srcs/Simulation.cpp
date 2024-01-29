@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 15:55:29 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 Simulation::Simulation():
 	_window(sf::VideoMode(
-		Config::getParameterVal(WINDOW_WIDTH_NAME),
-		Config::getParameterVal(WINDOW_HEIGHT_NAME)), WINDOW_TITLE),
+		UserInputs::getParameterVal(WINDOW_WIDTH_NAME),
+		UserInputs::getParameterVal(WINDOW_HEIGHT_NAME)), WINDOW_TITLE),
 	_grid(_window,
-		Config::getParameterVal(GRID_WIDTH_NAME),
-		Config::getParameterVal(GRID_HEIGHT_NAME)),
+		UserInputs::getParameterVal(GRID_WIDTH_NAME),
+		UserInputs::getParameterVal(GRID_HEIGHT_NAME)),
 	_handler(_window),
 	_state(RUNNING) {
 
@@ -59,7 +59,7 @@ void Simulation::wait() {
 }
 
 void Simulation::updateState() {
-	if (Config::isEmptyMousePos() == false) {
+	if (UserInputs::isEmptyMousePos() == false) {
 		_state = CLICKED;
 	} else if (GameState::isPaused()) {
 		_state = PAUSED;
@@ -89,5 +89,5 @@ void Simulation::resetRoutine() {
 void Simulation::clickRoutine() {
 	_grid.toggleCells();
 	refresh();
-	Config::clearMousePos();
+	UserInputs::clearMousePos();
 }

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 14:53:19 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:27:30 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Config.hpp"
+#include "UserInputs.hpp"
 #include "GameState.hpp"
 
 typedef void (*FunctionType)();

@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:35:14 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 14:53:01 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void KeyHandler::processEvents() {
             _keys[event.key.code] = false;
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            Config::addMousePos(sf::Mouse::getPosition(_window));
+            UserInputs::addMousePos(sf::Mouse::getPosition(_window));
         }
         if (event.type == sf::Event::Closed) {
             _window.close();

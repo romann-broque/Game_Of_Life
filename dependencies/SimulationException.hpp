@@ -6,9 +6,11 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 08:55:26 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:19:20 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 15:59:41 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <exception>
 #include <string>

@@ -6,12 +6,15 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:06 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 10:35:56 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:31:32 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
+
 #include "Grid.hpp"
 #include "KeyHandler.hpp"
+#include "SimulationException.hpp"
 
 typedef enum e_gameState {
 	RUNNING,

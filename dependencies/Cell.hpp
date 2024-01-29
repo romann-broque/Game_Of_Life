@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 11:17:22 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:26:41 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 
-#include "Config.hpp"
+#include "UserInputs.hpp"
 #include "Defines.hpp"
 
 typedef enum e_state {
@@ -44,11 +44,11 @@ class Cell {
 
 	private:
 		// Attributes
-		const bool			_darkening = Config::getParameterVal(DARKENING_NAME);
-		const bool			_foodConv = Config::getParameterVal(FOOD_CONV_NAME);
-		const bool			_foodPresence = Config::getParameterVal(FOOD_NAME);
-		const unsigned int	_foodProba = Config::getParameterVal(FOOD_PROBA_NAME);
-		const unsigned int	_cellLifetime = Config::getParameterVal(CELL_LIFETIME_NAME);
+		const bool			_darkening = UserInputs::getParameterVal(DARKENING_NAME);
+		const bool			_foodConv = UserInputs::getParameterVal(FOOD_CONV_NAME);
+		const bool			_foodPresence = UserInputs::getParameterVal(FOOD_NAME);
+		const unsigned int	_foodProba = UserInputs::getParameterVal(FOOD_PROBA_NAME);
+		const unsigned int	_cellLifetime = UserInputs::getParameterVal(CELL_LIFETIME_NAME);
 		sf::Color			_color;
 		sf::Color			_initColor;
 		sf::Color			_lifeColor;
