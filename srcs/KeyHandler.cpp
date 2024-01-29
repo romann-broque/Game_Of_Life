@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:35:14 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 10:39:53 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:39:47 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ bool KeyHandler::isKeyPressed(const sf::Keyboard::Key &key) const {
 bool KeyHandler::isKeyReleased(const sf::Keyboard::Key &key) const {
 	return !_keys[key];
 }
-
-KeyHandler::~KeyHandler() {}
 
 // Private methods
 

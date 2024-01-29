@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 11:28:57 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:41:53 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ void Simulation::start() {
 				_grid.update();
 			}
 			refresh();
-			usleep(Config::getTickTime());
+			wait();
 		}
 		Config::clearMousePos();
 	}
 }
+
+// Private
 
 void Simulation::refresh() {
 
@@ -55,4 +57,7 @@ void Simulation::refresh() {
 	_window.display(); // Display the contents of the window
 }
 
-Simulation::~Simulation() {}
+void Simulation::wait() {
+
+	usleep(Config::getTickTime());
+}

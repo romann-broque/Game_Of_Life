@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/26 10:39:58 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:39:51 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ class KeyHandler {
 		void processEvents();
 		bool isKeyPressed(const sf::Keyboard::Key &key) const;
 		bool isKeyReleased(const sf::Keyboard::Key &key) const;
-		~KeyHandler();
 
 	private:
 		// Attributes

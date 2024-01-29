@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 01:46:49 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:39:23 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ class Grid {
 		void display_grid();
 		void display();
 		void toggleCells();
-		~Grid();
 
 	private:
 		// Attributes

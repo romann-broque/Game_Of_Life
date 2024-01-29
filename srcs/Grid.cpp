@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/27 01:47:54 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 09:39:32 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void Grid::display() {
 	display_background();
 	display_grid();
 }
-
-Grid::~Grid() {}
 
 void Grid::toggleCells() {
 	const std::vector<sf::Vector2i> mousePos = Config::getMousePos();
