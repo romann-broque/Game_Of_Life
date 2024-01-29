@@ -6,15 +6,12 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:48:37 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:10:54 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 15:54:24 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Config.hpp"
 
-bool Config::_isPaused = false;
-bool Config::_isReset = false;
-size_t Config::_tickTime = DEFAULT_TICK_TIME;
 std::map<std::string, unsigned int> Config::_argNb = {
 	{WINDOW_WIDTH_NAME, WINDOW_WIDTH},
 	{WINDOW_HEIGHT_NAME, WINDOW_HEIGHT},
@@ -106,29 +103,8 @@ void Config::init(char **av) {
 
 // Setters
 
-void Config::togglePaused() {
-	_isPaused = !_isPaused;
-}
 
-void Config::reset() {
-	_isReset = true;
-}
 
-void Config::setResetState(const bool newState) {
-	_isReset = newState;
-}
-
-void Config::slowTime() {
-	if (_tickTime < TICK_TIME_MAX)
-		_tickTime *= TIME_FACTOR;
-}
-
-void Config::accelerateTime() {
-	if (_tickTime <= TIME_FACTOR)
-		_tickTime = 1;
-	else
-		_tickTime /= TIME_FACTOR;
-}
 
 void Config::addMousePos(const sf::Vector2i &mousePos) {
 	_mousePos.push_back(mousePos);
@@ -139,18 +115,6 @@ void Config::clearMousePos() {
 }
 
 // Getters
-
-bool Config::isPaused() {
-	return _isPaused;
-}
-
-bool Config::isReset() {
-	return _isReset;
-}
-
-size_t Config::getTickTime() {
-	return _tickTime;
-}
 
 std::vector<sf::Vector2i> Config::getMousePos() {
 	return _mousePos;

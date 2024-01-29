@@ -16,6 +16,7 @@ SRCS    += Cell.cpp
 SRCS    += Config.cpp
 SRCS    += KeyHandler.cpp
 SRCS    += Grid.cpp
+SRCS    += GameState.cpp
 SRCS    += main.cpp
 SRCS    += Simulation.cpp
 
@@ -36,6 +37,7 @@ HEADERS			+= Cell.hpp
 HEADERS			+= Config.hpp
 HEADERS			+= Defines.hpp
 HEADERS			+= KeyHandler.hpp
+HEADERS			+= GameState.hpp
 HEADERS			+= Grid.hpp
 HEADERS			+= Simulation.hpp
 HEADERS			+= SimulationException.hpp

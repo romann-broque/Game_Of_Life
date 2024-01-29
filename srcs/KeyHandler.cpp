@@ -6,17 +6,17 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:35:14 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 09:39:47 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 14:53:01 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "KeyHandler.hpp"
 
 KeyHandler::KeyHandler(sf::RenderWindow &window) : _window(window) {
-	_keyBindingMap[sf::Keyboard::Space] = &Config::togglePaused;
-	_keyBindingMap[sf::Keyboard::H] = &Config::slowTime;
-	_keyBindingMap[sf::Keyboard::J] = &Config::accelerateTime;
-	_keyBindingMap[sf::Keyboard::R] = &Config::reset;
+	_keyBindingMap[sf::Keyboard::Space] = &GameState::togglePaused;
+	_keyBindingMap[sf::Keyboard::H] = &GameState::slowTime;
+	_keyBindingMap[sf::Keyboard::J] = &GameState::accelerateTime;
+	_keyBindingMap[sf::Keyboard::R] = &GameState::reset;
 	for (size_t i = 0; i < sf::Keyboard::KeyCount; ++i) {
 		_keys[i] = false;
 	}

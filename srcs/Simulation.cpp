@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 10:35:43 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/29 15:55:29 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void Simulation::refresh() {
 
 void Simulation::wait() {
 
-	usleep(Config::getTickTime());
+	usleep(GameState::getTickTime());
 }
 
 void Simulation::updateState() {
 	if (Config::isEmptyMousePos() == false) {
 		_state = CLICKED;
-	} else if (Config::isPaused()) {
+	} else if (GameState::isPaused()) {
 		_state = PAUSED;
-	} else if (Config::isReset()) {
+	} else if (GameState::isReset()) {
 		_state = RESET;
 	} else {
 		_state = RUNNING;
@@ -83,7 +83,7 @@ void Simulation::pausedRoutine() {
 
 void Simulation::resetRoutine() {
 	_grid.reset();
-	Config::setResetState(false);
+	GameState::setResetState(false);
 }
 
 void Simulation::clickRoutine() {

@@ -158,7 +158,7 @@ void Cell::update() {
 }
 
 void Cell::lifeRoutine() {
-	if (_foodPresence && _age > _cellLifetime) {
+	if (_foodPresence && _foodConv && _age > _cellLifetime) {
 		if (_foodConv)
 			setNextState(FOOD);
 		else
