@@ -36,7 +36,6 @@ std::map<std::string, sf::Color> UserInputs::_argColor = {
 	{CELL_COLOR_NAME, sf::Color(CELL_COLOR)},
 	{FOOD_COLOR_NAME, sf::Color(FOOD_COLOR)}
 };
-std::vector<sf::Vector2i> UserInputs::_mousePos;
 
 // Public methods
 
@@ -63,24 +62,6 @@ void UserInputs::init(char **av) {
 		++i;
 	}
 	checkParameters();
-}
-
-void UserInputs::addMousePos(const sf::Vector2i &mousePos) {
-	_mousePos.push_back(mousePos);
-}
-
-void UserInputs::clearMousePos() {
-	_mousePos.clear();
-}
-
-// Getters
-
-std::vector<sf::Vector2i> UserInputs::getMousePos() {
-	return _mousePos;
-}
-
-bool UserInputs::isEmptyMousePos() {
-	return _mousePos.size() == 0;
 }
 
 unsigned int UserInputs::getParameterVal(const std::string &paramName) {

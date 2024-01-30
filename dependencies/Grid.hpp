@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 21:44:51 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:33:05 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ class Grid {
 		void draw_background();
 		void draw_grid();
 		void draw();
-		void toggleCells();
+		void toggleCell(const size_t screenX, const size_t screenY);
 
 	private:
 		// Attributes

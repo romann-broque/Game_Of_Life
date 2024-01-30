@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 22:14:40 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:42:21 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,13 @@ void Grid::draw() {
 	draw_grid();
 }
 
-void Grid::toggleCells() {
-	const std::vector<sf::Vector2i> mousePos = UserInputs::getMousePos();
-
-	for (std::vector<sf::Vector2i>::const_iterator it = mousePos.begin();
-	it != mousePos.end(); ++it) {
-		const sf::Vector2f worldPos = _window.mapPixelToCoords(*it);
-		const size_t gridX = (worldPos.x - _params.topLeftX) / _params.cellSize;
-		const size_t gridY = (worldPos.y - _params.topLeftY) / _params.cellSize;
-		if (isInGridScreen(gridX, gridY)) {
-			Cell *const cell = &(_grid[gridY][gridX]);
-			cell->toggleState();
-			drawCellIfNotDead(*cell, gridX, gridY);
-		}
+void Grid::toggleCell(const size_t screenX, const size_t screenY) {
+	const size_t gridX = (screenX - _params.topLeftX) / _params.cellSize;
+	const size_t gridY = (screenY - _params.topLeftY) / _params.cellSize;
+	if (isInGridScreen(gridX, gridY)) {
+		Cell *const cell = &(_grid[gridY][gridX]);
+		cell->toggleState();
+		drawCellIfNotDead(*cell, gridX, gridY);
 	}
 }
 

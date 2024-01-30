@@ -22,10 +22,6 @@
 class UserInputs {
 public:
 	static void init(char **argv);
-	static void addMousePos(const sf::Vector2i &mousePos);
-	static void clearMousePos();
-	static std::vector<sf::Vector2i> getMousePos();
-	static bool isEmptyMousePos();
 	static unsigned int getParameterVal(const std::string &paramName);
 	static sf::Color getParameterColor(const std::string &paramName);
 
@@ -33,7 +29,6 @@ private:
 	// Attributes
 	static std::map<std::string, unsigned int> _argNb;
 	static std::map<std::string, sf::Color> _argColor;
-	static std::vector<sf::Vector2i> _mousePos;
 	// Private Methods
 	static void associateValueToKey(const std::string &key, const std::string &value);
 	static void assignValueToKey(const std::string &key, const unsigned int value);
