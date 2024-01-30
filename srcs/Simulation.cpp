@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 11:56:07 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ Simulation::Simulation():
 	_window(sf::VideoMode(
 		UserInputs::getParameterVal(WINDOW_WIDTH_NAME),
 		UserInputs::getParameterVal(WINDOW_HEIGHT_NAME)), WINDOW_TITLE),
-	_grid(_window,
-		UserInputs::getParameterVal(GRID_WIDTH_NAME),
-		UserInputs::getParameterVal(GRID_HEIGHT_NAME)),
 	_handler(_window),
-	_state(RUNNING) {
+	_state(RUNNING),
+	_grid(_window, initParameters()) {
 
 	sf::View view(_window.getDefaultView());
 	view.setCenter(sf::Vector2f(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f));
@@ -36,7 +34,6 @@ void Simulation::start() {
 		{CLICKED, &Simulation::clickRoutine}
 	};
 
-
 	while (_window.isOpen()) {
 		(this->*(mapState.at(_state)))();
 		_handler.processEvents();
@@ -45,6 +42,24 @@ void Simulation::start() {
 }
 
 // Private
+
+t_gridParameter Simulation::initParameters() {
+
+	t_gridParameter grid;
+
+	grid.width = UserInputs::getParameterVal(GRID_WIDTH_NAME);
+	grid.height = UserInputs::getParameterVal(GRID_HEIGHT_NAME);
+	grid.cellSize = UserInputs::getParameterVal(CELL_SIZE_NAME);
+	grid.borderThick = UserInputs::getParameterVal(BORDER_THICK_NAME);
+	grid.lifeProba = UserInputs::getParameterVal(LIFE_PROBA_NAME);
+	grid.topLeftX = (UserInputs::getParameterVal(WINDOW_WIDTH_NAME) -  grid.width * grid.cellSize) / 2;
+	grid.topLeftY = (UserInputs::getParameterVal(WINDOW_HEIGHT_NAME) -  grid.height * grid.cellSize) / 2;
+	grid.borderColor = UserInputs::getParameterColor(BORDER_COLOR_NAME);
+	grid.backgroundColor = UserInputs::getParameterColor(BACKGROUND_COLOR_NAME);
+	grid.cellColor = UserInputs::getParameterColor(CELL_COLOR_NAME);
+	grid.foodColor = UserInputs::getParameterColor(FOOD_COLOR_NAME);
+	return grid;
+}
 
 void Simulation::refresh() {
 

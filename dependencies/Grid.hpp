@@ -6,14 +6,13 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:28:48 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 11:55:19 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "Cell.hpp"
-// #include "Config.hpp"
 #include <unistd.h>
 #include <cmath>
 #include <vector>
@@ -22,9 +21,23 @@
 
 #define DEFAULT_SIZE 20
 
+typedef struct GridParameter {
+	size_t width;
+	size_t height;
+	unsigned int topLeftX;
+	unsigned int topLeftY;
+	unsigned int borderThick;
+	unsigned int cellSize;
+	unsigned int lifeProba;
+	sf::Color borderColor;
+	sf::Color backgroundColor;
+	sf::Color cellColor;
+	sf::Color foodColor;
+} t_gridParameter;
+
 class Grid {
 	public:
-		Grid(sf::RenderWindow &window, const size_t width, const size_t height);
+		Grid(sf::RenderWindow &window, const t_gridParameter &params);
 		void update();
 		void reset();
 		void draw_background();
@@ -34,23 +47,19 @@ class Grid {
 
 	private:
 		// Attributes
-		const size_t _width;
-		const size_t _height;
-		const unsigned int borderThick = UserInputs::getParameterVal(BORDER_THICK_NAME);
-		const unsigned int cellSize = UserInputs::getParameterVal(CELL_SIZE_NAME);
-		const unsigned int lifeProba = UserInputs::getParameterVal(LIFE_PROBA_NAME);
-		const float topLeftX = (WINDOW_WIDTH - _width * cellSize) / 2;
-		const float topLeftY = (WINDOW_HEIGHT - _height * cellSize) / 2;
-		sf::RenderWindow &window;
-		std::vector<std::vector<Cell>> grid;
+		// const size_t _width;
+		// const size_t _height;
+		// const unsigned int borderThick = UserInputs::getParameterVal(BORDER_THICK_NAME);
+		// const unsigned int cellSize = UserInputs::getParameterVal(CELL_SIZE_NAME);
+		// const unsigned int lifeProba = UserInputs::getParameterVal(LIFE_PROBA_NAME);
+		// const float topLeftX = (WINDOW_WIDTH - _width * cellSize) / 2;
+		// const float topLeftY = (WINDOW_HEIGHT - _height * cellSize) / 2;
+		sf::RenderWindow &_window;
+		const t_gridParameter _params;
 		std::vector<std::vector<Cell>> init_grid;
-		sf::Color borderColor;
-		sf::Color backgroundColor;
-		sf::Color cellColor;
-		sf::Color foodColor;
+		std::vector<std::vector<Cell>> grid;
 
 		// Methods
-		void initColors();
 		void initCellGrids();
 		void preArrange();
 		void arrange();

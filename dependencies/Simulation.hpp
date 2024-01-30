@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:06 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:31:32 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 11:34:41 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ class Simulation {
 		void start();
 	private:
 		sf::RenderWindow _window;
-		Grid			 _grid;
 		KeyHandler		 _handler;
 		t_gameState		 _state;
+		Grid			 _grid;
+		t_gridParameter initParameters();
 		void refresh();
 		void wait();
 		void updateState();

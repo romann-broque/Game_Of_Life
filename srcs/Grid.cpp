@@ -6,27 +6,18 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:21:16 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 14:11:42 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Grid.hpp"
 
-static sf::Color hexToRgb(const unsigned int num) {
-	const unsigned char r = num >> 16 & 0xFF;
-	const unsigned char g = num >> 8 & 0xFF;
-	const unsigned char b = num & 0xFF;
-	return sf::Color(r, g, b);
-}
-
 // Public methods
 
-Grid::Grid(sf::RenderWindow &window, const size_t width, const size_t height):
-	_width(width),
-	_height(height),
-	window(window) {
+Grid::Grid(sf::RenderWindow &window, const t_gridParameter &params):
+	_window(window),
+	_params(params) {
 
-	initColors();
 	initCellGrids();
 }
 
@@ -42,20 +33,21 @@ void Grid::reset() {
 	resetCellGrid();
 }
 
+// do a method for initializing background before drawing it
 void Grid::draw_background() {
 
-	sf::RectangleShape background(sf::Vector2f(_width * cellSize, _height * cellSize));
-	background.setPosition(topLeftX, topLeftY);
-	background.setOutlineColor(borderColor); // Set the outline color
-	background.setOutlineThickness(borderThick); // Set the outline thickness
-	background.setFillColor(backgroundColor);
-	window.draw(background);
+	sf::RectangleShape background(sf::Vector2f(_params.width * _params.cellSize, _params.height * _params.cellSize));
+	background.setPosition(_params.topLeftX, _params.topLeftY);
+	background.setOutlineColor(_params.borderColor); // Set the outline color
+	background.setOutlineThickness(_params.borderThick); // Set the outline thickness
+	background.setFillColor(_params.backgroundColor);
+	_window.draw(background);
 }
 
 void Grid::draw_grid() {
 
-	for (size_t i = 0; i < _height; ++i) {
-		for (size_t j = 0; j < _width; ++j) {
+	for (size_t i = 0; i < _params.height; ++i) {
+		for (size_t j = 0; j < _params.width; ++j) {
 			const Cell cell = grid[i][j];
 			if (cell.canBeDrawn()) {
 				drawCell(j, i);
@@ -74,9 +66,9 @@ void Grid::toggleCells() {
 
 	for (std::vector<sf::Vector2i>::const_iterator it = mousePos.begin();
 	it != mousePos.end(); ++it) {
-		const sf::Vector2f worldPos = window.mapPixelToCoords(*it);
-		const size_t gridX = (worldPos.x - topLeftX) / cellSize;
-		const size_t gridY = (worldPos.y - topLeftY) / cellSize;
+		const sf::Vector2f worldPos = _window.mapPixelToCoords(*it);
+		const size_t gridX = (worldPos.x - _params.topLeftX) / _params.cellSize;
+		const size_t gridY = (worldPos.y - _params.topLeftY) / _params.cellSize;
 		if (isInGridScreen(gridX, gridY)) {
 			grid[gridY][gridX].toggleState();
 			drawCell(gridX, gridY);
@@ -86,22 +78,14 @@ void Grid::toggleCells() {
 
 // Private
 
-void Grid::initColors() {
-
-	backgroundColor = hexToRgb(UserInputs::getParameterVal(BACKGROUND_COLOR_NAME));
-	borderColor = hexToRgb(UserInputs::getParameterVal(BORDER_COLOR_NAME));
-	cellColor = hexToRgb(UserInputs::getParameterVal(CELL_COLOR_NAME));
-	foodColor = hexToRgb(UserInputs::getParameterVal(FOOD_COLOR_NAME));
-}
-
 void Grid::drawCell(const size_t x, const size_t y) {
 	const Cell cell = grid[y][x];
-	const float posX = x * cellSize + topLeftX;
-	const float posY = y * cellSize + topLeftY;
-	sf::RectangleShape	cellScreen(sf::Vector2f(cellSize, cellSize));
+	const float posX = x * _params.cellSize + _params.topLeftX;
+	const float posY = y * _params.cellSize + _params.topLeftY;
+	sf::RectangleShape	cellScreen(sf::Vector2f(_params.cellSize, _params.cellSize));
 	cellScreen.setFillColor(cell.getColor());
 	cellScreen.setPosition(posX, posY);
-	window.draw(cellScreen);
+	_window.draw(cellScreen);
 }
 
 void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
@@ -123,8 +107,8 @@ std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
 		it != directions.end(); ++it) {
 		const int newX = x + it->first;
 		const int newY = y + it->second;
-		const size_t finalX = (newX + _width) % _width;
-		const size_t finalY = (newY + _height) % _height;
+		const size_t finalX = (newX + _params.width) % _params.width;
+		const size_t finalY = (newY + _params.height) % _params.height;
 		surroundingCells.push_back(grid[finalY][finalX]);
 	}
 	return surroundingCells;
@@ -132,13 +116,13 @@ std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
 
 void Grid::initCellGrids() {
 
-	for (size_t i = 0; i < _height; ++i) {
+	for (size_t i = 0; i < _params.height; ++i) {
 		std::vector<Cell> row;
-		for (size_t j = 0; j < _width; ++j) {
-			Cell cell( cellColor);
-			cell.setCellStateColor(FOOD, foodColor);
-			cell.setCellStateColor(ALIVE, cellColor);
-			cell.initState(lifeProba);
+		for (size_t j = 0; j < _params.width; ++j) {
+			Cell cell(_params.cellColor);
+			cell.setCellStateColor(FOOD, _params.foodColor);
+			cell.setCellStateColor(ALIVE, _params.cellColor);
+			cell.initState(_params.lifeProba);
 			row.push_back(cell);
 		}
 		grid.push_back(row);
@@ -148,16 +132,16 @@ void Grid::initCellGrids() {
 
 void Grid::preArrange() {
 
-	for (size_t i = 0; i < _height; ++i) {
-		for (size_t j = 0; j < _width; ++j) {
+	for (size_t i = 0; i < _params.height; ++i) {
+		for (size_t j = 0; j < _params.width; ++j) {
 			updateCell(grid[i][j], j, i);
 		}
 	}
 }
 
 void Grid::arrange() {
-	for (size_t i = 0; i < _height; ++i) {
-		for (size_t j = 0; j < _width; ++j)
+	for (size_t i = 0; i < _params.height; ++i) {
+		for (size_t j = 0; j < _params.width; ++j)
 			grid[i][j].refresh();
 	}
 }
@@ -167,7 +151,7 @@ void Grid::resetCellGrid() {
 }
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
-	return x < _width && y < _height;
+	return x < _params.width && y < _params.height;
 }
 
 size_t Grid::countStateCells(const std::vector<Cell> &surroundingCells, const t_state state) {

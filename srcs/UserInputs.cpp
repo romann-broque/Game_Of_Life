@@ -30,6 +30,12 @@ std::map<std::string, unsigned int> UserInputs::_argNb = {
 	{FOOD_CONV_NAME, FOOD_CONV},
 	{CELL_LIFETIME_NAME, CELL_LIFETIME}
 };
+std::map<std::string, sf::Color> UserInputs::_argColor = {
+	{BORDER_COLOR_NAME, sf::Color(BORDER_COLOR)},
+	{BACKGROUND_COLOR_NAME, sf::Color(BACKGROUND_COLOR)},
+	{CELL_COLOR_NAME, sf::Color(CELL_COLOR)},
+	{FOOD_COLOR_NAME, sf::Color(FOOD_COLOR)}
+};
 std::vector<sf::Vector2i> UserInputs::_mousePos;
 
 // Public methods
@@ -83,8 +89,15 @@ unsigned int UserInputs::getParameterVal(const std::string &paramName) {
 	return _argNb[paramName];
 }
 
+sf::Color UserInputs::getParameterColor(const std::string &paramName) {
+	if (_argColor.find(paramName) == _argColor.end())
+		throw InvalidParameterRequestException();
+	return _argColor[paramName];
+}
+
 // Private Methods
 
+#include <iostream>
 void UserInputs::associateValueToKey(const std::string &key, const std::string &value) {
 
 	unsigned int numericValue;
@@ -96,7 +109,9 @@ void UserInputs::associateValueToKey(const std::string &key, const std::string &
 	} else if (isHexKey(key)) {
 		if (isHexadecimal(value) == false)
 			throw InvalidValueException();
-		numericValue = hexToDec(value);
+		const sf::Color color = hexToRgb(value);
+		assignColorToKey(key, color);
+		return ;
 	} else if (isValidUnsignedInt(value)) {
 		numericValue = std::stoul(value);
 	} else {
@@ -110,6 +125,11 @@ void UserInputs::assignValueToKey(const std::string &key, const unsigned int val
 	if ((key == LIFE_PROBA_NAME || key == FOOD_PROBA_NAME) && value > 100)
 		throw InvalidValueException();
 	_argNb[key] = value;
+}
+
+void UserInputs::assignColorToKey(const std::string &key, const sf::Color &color) {
+
+	_argColor[key] = color;
 }
 
 void UserInputs::checkParameters() {
@@ -138,11 +158,7 @@ bool UserInputs::isValidUnsignedInt(const std::string& str) {
 }
 
 unsigned int UserInputs::hexToDec(const std::string& hexStr) {
-	std::stringstream ss;
-	unsigned int decNum;
-	ss << std::hex << hexStr;
-	ss >> decNum;
-	return decNum;
+	return std::stoul(hexStr, nullptr, 16);
 }
 
 bool UserInputs::isHexadecimal(const std::string& str) {
@@ -159,4 +175,12 @@ bool UserInputs::isHexKey(const std::string& key) {
 	|| key == BORDER_COLOR_NAME
 	|| key == CELL_COLOR_NAME
 	|| key == FOOD_COLOR_NAME;
+}
+
+sf::Color UserInputs::hexToRgb(const std::string &str) {
+	const unsigned int colorValue = hexToDec(str);
+	const unsigned char r = colorValue >> 16 & 0xFF;
+	const unsigned char g = colorValue >> 8 & 0xFF;
+	const unsigned char b = colorValue & 0xFF;
+	return sf::Color(r, g, b);
 }
