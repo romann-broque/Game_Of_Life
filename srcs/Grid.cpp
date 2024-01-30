@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 14:11:42 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 15:27:09 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ Grid::Grid(sf::RenderWindow &window, const t_gridParameter &params):
 	_window(window),
 	_params(params) {
 
+	initBackground();
 	initCellGrids();
 }
 
@@ -33,15 +34,8 @@ void Grid::reset() {
 	resetCellGrid();
 }
 
-// do a method for initializing background before drawing it
 void Grid::draw_background() {
-
-	sf::RectangleShape background(sf::Vector2f(_params.width * _params.cellSize, _params.height * _params.cellSize));
-	background.setPosition(_params.topLeftX, _params.topLeftY);
-	background.setOutlineColor(_params.borderColor); // Set the outline color
-	background.setOutlineThickness(_params.borderThick); // Set the outline thickness
-	background.setFillColor(_params.backgroundColor);
-	_window.draw(background);
+	_window.draw(_background);
 }
 
 void Grid::draw_grid() {
@@ -128,6 +122,16 @@ void Grid::initCellGrids() {
 		grid.push_back(row);
 		init_grid.push_back(row);
 	}
+}
+
+void Grid::initBackground() {
+
+	const sf::RectangleShape background(sf::Vector2f(_params.width * _params.cellSize, _params.height * _params.cellSize));
+	_background = background;
+	_background.setPosition(_params.topLeftX, _params.topLeftY);
+	_background.setOutlineColor(_params.borderColor); // Set the outline color
+	_background.setOutlineThickness(_params.borderThick); // Set the outline thickness
+	_background.setFillColor(_params.backgroundColor);
 }
 
 void Grid::preArrange() {

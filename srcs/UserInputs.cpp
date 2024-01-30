@@ -97,7 +97,6 @@ sf::Color UserInputs::getParameterColor(const std::string &paramName) {
 
 // Private Methods
 
-#include <iostream>
 void UserInputs::associateValueToKey(const std::string &key, const std::string &value) {
 
 	unsigned int numericValue;

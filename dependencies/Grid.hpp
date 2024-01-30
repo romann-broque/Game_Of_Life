@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 11:55:19 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 15:21:54 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,14 @@ class Grid {
 		// const float topLeftX = (WINDOW_WIDTH - _width * cellSize) / 2;
 		// const float topLeftY = (WINDOW_HEIGHT - _height * cellSize) / 2;
 		sf::RenderWindow &_window;
+		sf::RectangleShape _background;
 		const t_gridParameter _params;
 		std::vector<std::vector<Cell>> init_grid;
 		std::vector<std::vector<Cell>> grid;
 
 		// Methods
 		void initCellGrids();
+		void initBackground();
 		void preArrange();
 		void arrange();
 		void resetCellGrid();
