@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 22:03:14 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:11:50 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void Grid::initCellGrids() {
 		std::vector<Cell> row;
 		for (size_t j = 0; j < _params.width; ++j) {
 			Cell cell(_params.cellConfig);
-			cell.initState(_params.lifeProba);
+			cell.setRandomState();
 			row.push_back(cell);
 		}
 		_grid.push_back(row);
@@ -122,7 +122,7 @@ void Grid::initCellNeighborhood(Cell &cell, const size_t x, const size_t y) {
 		const size_t finalY = (newY + _params.height) % _params.height;
 		surroundingCells.push_back(&(_grid[finalY][finalX]));
 	}
-	cell.setNeihborhood(surroundingCells);
+	cell.setNeighborhood(surroundingCells);
 }
 
 void Grid::initBackground() {

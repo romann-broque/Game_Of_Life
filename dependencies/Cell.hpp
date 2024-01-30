@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 22:03:59 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:11:00 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ typedef struct CellParameter {
 	bool			darkening;
 	bool			foodPresence;
 	bool			foodConv;
+	unsigned int	lifeProba;
 	unsigned int	foodProba;
 	unsigned int	cellLifetime;
 	sf::Color		lifeColor;
 	sf::Color		foodColor;
 }	t_cellParameter;
-
-class Grid;
 
 class Cell {
 	public:
@@ -45,18 +44,17 @@ class Cell {
 		~Cell();
 		Cell &operator=(const Cell &cell);
 		// Setters
-		void setCellStateColor(const t_state state);
+		void setRandomState();
 		void setNextState(const t_state newState);
-		void initState(const unsigned char lifeProba);
-		void setNeihborhood(const std::vector<Cell *> &surroundingCells);
+		void setNeighborhood(const std::vector<Cell *> &surroundingCells);
 		void toggleState();
 		// Getters
 		t_state getState() const;
 		sf::Color getColor() const;
 		bool canBeDrawn() const;
 		// Action
-		void evolve();
 		void refresh();
+		void evolve();
 
 	private:
 		// Attributes
@@ -65,10 +63,11 @@ class Cell {
 		t_state 				_state;
 		t_state 				_nextState;
 		size_t					_age;
-		Cell					*_neighboors[8];
+		Cell					*_neighboors[NEIGHBOOR_COUNT];
 		size_t					_neighboorCount[STATE_COUNT];
 		// Private methods
 		void setCellColor(const sf::Color color);
+		void setCellStateColor(const t_state state);
 		void changeBrightness(const int lightFactor);
 		unsigned char newColorComponentBrightness(const unsigned char color, const int lightFactor);
 		void update();

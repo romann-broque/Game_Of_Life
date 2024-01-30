@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 18:29:15 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:11:19 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_gridParameter Simulation::initParameters() {
 	grid.cellConfig.darkening = UserInputs::getParameterVal(DARKENING_NAME);
 	grid.cellConfig.foodPresence = UserInputs::getParameterVal(FOOD_NAME);
 	grid.cellConfig.foodConv = UserInputs::getParameterVal(FOOD_CONV_NAME);
+	grid.cellConfig.lifeProba = UserInputs::getParameterVal(LIFE_PROBA_NAME);
 	grid.cellConfig.foodProba = UserInputs::getParameterVal(FOOD_PROBA_NAME);
 	grid.cellConfig.cellLifetime = UserInputs::getParameterVal(CELL_LIFETIME_NAME);
 	grid.cellConfig.lifeColor = UserInputs::getParameterColor(CELL_COLOR_NAME);

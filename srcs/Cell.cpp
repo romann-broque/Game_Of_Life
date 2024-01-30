@@ -30,20 +30,6 @@ Cell::~Cell() {}
 
 // Setters
 
-void Cell::setCellColor(const sf::Color newColor) {
-
-	_color = newColor;
-}
-
-void Cell::setCellStateColor(const t_state state) {
-
-	if (state == ALIVE) {
-		_color = _params.lifeColor;
-	} else if (state == FOOD) {
-		_color = _params.foodColor;
-	}
-}
-
 void Cell::refresh() {
 	_state = _nextState;
 	update();
@@ -53,22 +39,22 @@ void Cell::setNextState(const t_state newState) {
 	_nextState = newState;
 }
 
-void Cell::setNeihborhood(const std::vector<Cell *> &surroundingCells) {
+void Cell::setNeighborhood(const std::vector<Cell *> &surroundingCells) {
 	for (size_t i = 0; i < 8; ++i) {
 		_neighboors[i] = surroundingCells[i];
 	}
 }
 
-void Cell::initState(const unsigned char lifeProba) {
+void Cell::setRandomState() {
 
 	std::random_device rd; // Will be used to obtain a seed for the random number engine
 	std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 	std::uniform_int_distribution<> distrib(1, 100);
-
 	const unsigned int randomNumber = distrib(gen);
-	if (randomNumber <= lifeProba) {
+
+	if (randomNumber <= _params.lifeProba) {
 		_state = ALIVE;
-	} else if (_params.foodPresence && randomNumber <= lifeProba + _params.foodProba) {
+	} else if (_params.foodPresence && randomNumber <= _params.lifeProba + _params.foodProba) {
 		_state = FOOD;
 	} else {
 		_state = DEAD;
@@ -121,6 +107,8 @@ void Cell::evolve() {
 
 // Private
 
+// Colors //
+
 void Cell::changeBrightness(const int lightFactor) {
 
 	sf::Color newColor = _color;
@@ -130,6 +118,22 @@ void Cell::changeBrightness(const int lightFactor) {
 	newColor.b = newColorComponentBrightness(newColor.b, lightFactor);
 	setCellColor(newColor);
 }
+
+void Cell::setCellColor(const sf::Color newColor) {
+
+	_color = newColor;
+}
+
+void Cell::setCellStateColor(const t_state state) {
+
+	if (state == ALIVE) {
+		_color = _params.lifeColor;
+	} else if (state == FOOD) {
+		_color = _params.foodColor;
+	}
+}
+
+// Update
 
 void Cell::update() {
 	if (_state == ALIVE) {
@@ -145,6 +149,14 @@ void Cell::update() {
 		setCellStateColor(FOOD);
 	}
 }
+
+void Cell::scanNeighborhood() {
+	_neighboorCount[ALIVE] = countStateCells(ALIVE);
+	_neighboorCount[FOOD] = countStateCells(FOOD);
+	_neighboorCount[DEAD] = countStateCells(DEAD);
+}
+
+// Routines //
 
 void Cell::lifeRoutine() {
 	if (_params.foodPresence && _params.foodConv && _age > _params.cellLifetime) {
@@ -173,16 +185,10 @@ void Cell::deadRoutine() {
 size_t Cell::countStateCells(const t_state state) const {
 	size_t	count = 0;
 
-	for (size_t i = 0; i < 8; ++i) {
+	for (size_t i = 0; i < NEIGHBOOR_COUNT; ++i) {
 		count += (_neighboors[i]->getState() == state);
 	}
 	return count;
-}
-
-void Cell::scanNeighborhood() {
-	_neighboorCount[ALIVE] = countStateCells(ALIVE);
-	_neighboorCount[FOOD] = countStateCells(FOOD);
-	_neighboorCount[DEAD] = countStateCells(DEAD);
 }
 
 unsigned char Cell::newColorComponentBrightness(const unsigned char color, const int lightFactor) {
