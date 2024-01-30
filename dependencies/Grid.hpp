@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 18:05:29 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 21:44:51 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ class Grid {
 		// Methods
 		void initCellGrids();
 		void initBackground();
+		void initNeighboors();
+		void initCellNeighborhood(Cell &cell, const size_t x, const size_t y);
 		void preArrange();
 		void arrange();
 		void resetCellGrid();
 		void drawCell(const size_t x, const size_t y);
 		void drawCellIfNotDead(Cell &cell, const size_t x, const size_t y);
 		void updateCell(Cell &cell, const size_t i, const size_t j);
-		std::vector<Cell> getSurroundingCells(const size_t i, const size_t j);
 		size_t countStateCells(const std::vector<Cell> &surroundingCells, const t_state state);
 		bool isInGridScreen(const size_t x, const size_t y);
 		void refreshCell(Cell &cell,

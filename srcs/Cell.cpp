@@ -12,25 +12,11 @@
 
 #include "Cell.hpp"
 
-// Static
-
-static unsigned char newColorComponentBrightness(const unsigned char color, const int lightFactor) {
-	unsigned int newColor = color;
-	if (newColor + lightFactor > MIN_COLOR_COMP && newColor + lightFactor < MAX_COLOR_COMP) {
-		newColor += lightFactor;
-	}
-	return newColor;
-}
-
 // Constructor
 
 Cell::Cell(const t_cellParameter &params):
 	_params(params), _color(_params.lifeColor),
-	_state(ALIVE), _nextState(ALIVE),
-	_age(0), _livingCount(0), _foodCount(0), _deadCount(0) {
-
-	setCellColor(_color);
-}
+	_state(ALIVE), _nextState(ALIVE), _age(0) {}
 
 Cell &Cell::operator=(const Cell &cell) {
 	this->_state = cell._state;
@@ -65,6 +51,12 @@ void Cell::refresh() {
 
 void Cell::setNextState(const t_state newState) {
 	_nextState = newState;
+}
+
+void Cell::setNeihborhood(const std::vector<Cell *> &surroundingCells) {
+	for (size_t i = 0; i < 8; ++i) {
+		_neighboors[i] = surroundingCells[i];
+	}
 }
 
 void Cell::initState(const unsigned char lifeProba) {
@@ -114,7 +106,7 @@ bool Cell::canBeDrawn() const {
 
 // Actions
 
-void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t deadCount) {
+void Cell::evolve() {
 
 	static const std::map<t_state, void (Cell::*)()> mapState = {
 		{ALIVE, &Cell::lifeRoutine},
@@ -122,9 +114,7 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 		{DEAD, &Cell::deadRoutine}
 	};
 
-	_livingCount = livingCount;
-	_foodCount = foodCount;
-	_deadCount = deadCount;
+	scanNeighborhood();
 	_nextState = _state;
 	(this->*(mapState.at(_state)))();
 }
@@ -162,20 +152,43 @@ void Cell::lifeRoutine() {
 			setNextState(FOOD);
 		else
 			setNextState(DEAD);
-	} else if (_params.foodPresence && _foodCount > 0)
+	} else if (_params.foodPresence && _neighboorCount[FOOD] > 0)
 		setNextState(ALIVE);
-	else if (_livingCount < 2 || _livingCount > 3)
+	else if (_neighboorCount[ALIVE] < 2 || _neighboorCount[ALIVE] > 3)
 		setNextState(DEAD);
 }
 
 void Cell::foodRoutine() {
-	if (_livingCount >= 2)
+	if (_neighboorCount[ALIVE] >= 2)
 		setNextState(DEAD);
 }
 
 void Cell::deadRoutine() {
-	if (_params.foodPresence && _foodCount > 5)
+	if (_params.foodPresence && _neighboorCount[FOOD] > 5)
 		setNextState(FOOD);
-	else if (_livingCount == 3)
+	else if (_neighboorCount[ALIVE] == 3)
 		setNextState(ALIVE);
+}
+
+size_t Cell::countStateCells(const t_state state) const {
+	size_t	count = 0;
+
+	for (size_t i = 0; i < 8; ++i) {
+		count += (_neighboors[i]->getState() == state);
+	}
+	return count;
+}
+
+void Cell::scanNeighborhood() {
+	_neighboorCount[ALIVE] = countStateCells(ALIVE);
+	_neighboorCount[FOOD] = countStateCells(FOOD);
+	_neighboorCount[DEAD] = countStateCells(DEAD);
+}
+
+unsigned char Cell::newColorComponentBrightness(const unsigned char color, const int lightFactor) {
+	unsigned int newColor = color;
+	if (newColor + lightFactor > MIN_COLOR_COMP && newColor + lightFactor < MAX_COLOR_COMP) {
+		newColor += lightFactor;
+	}
+	return newColor;
 }

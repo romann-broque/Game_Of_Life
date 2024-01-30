@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 18:12:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:03:14 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,12 @@ void Grid::drawCell(const size_t x, const size_t y) {
 	_window.draw(cellScreen);
 }
 
-void Grid::updateCell(Cell &cell, const size_t x, const size_t y) {
-	const std::vector<Cell> surroundingCells = getSurroundingCells(x, y);
-	const size_t livingCellCount = countStateCells(surroundingCells, ALIVE);
-	const size_t foodCellCount = countStateCells(surroundingCells, FOOD);
-	const size_t deadCellCount = fabs(livingCellCount - foodCellCount);
+void Grid::updateCell(
+	Cell &cell,
+	__attribute__((unused)) const size_t x,
+	__attribute__((unused)) const size_t y) {
 
-	cell.evolve(livingCellCount, foodCellCount, deadCellCount);
-}
-
-std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
-
-	const std::vector<std::pair<int, int>> directions
-		= {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-	std::vector<Cell> surroundingCells;
-
-	for (std::vector<std::pair<int, int>>::const_iterator it = directions.begin();
-		it != directions.end(); ++it) {
-		const int newX = x + it->first;
-		const int newY = y + it->second;
-		const size_t finalX = (newX + _params.width) % _params.width;
-		const size_t finalY = (newY + _params.height) % _params.height;
-		surroundingCells.push_back(_grid[finalY][finalX]);
-	}
-	return surroundingCells;
+	cell.evolve();
 }
 
 void Grid::initCellGrids() {
@@ -119,6 +101,28 @@ void Grid::initCellGrids() {
 		_grid.push_back(row);
 		_init_grid.push_back(row);
 	}
+	initNeighboors();
+}
+
+void Grid::initNeighboors() {
+	forEachCell(*this, &Grid::initCellNeighborhood);
+}
+
+void Grid::initCellNeighborhood(Cell &cell, const size_t x, const size_t y) {
+
+	static const std::vector<std::pair<int, int>> directions
+		= {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+	std::vector<Cell *> surroundingCells;
+
+	for (std::vector<std::pair<int, int>>::const_iterator it = directions.begin();
+		it != directions.end(); ++it) {
+		const int newX = x + it->first;
+		const int newY = y + it->second;
+		const size_t finalX = (newX + _params.width) % _params.width;
+		const size_t finalY = (newY + _params.height) % _params.height;
+		surroundingCells.push_back(&(_grid[finalY][finalX]));
+	}
+	cell.setNeihborhood(surroundingCells);
 }
 
 void Grid::initBackground() {
@@ -153,14 +157,4 @@ void Grid::resetCellGrid() {
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
 	return x < _params.width && y < _params.height;
-}
-
-size_t Grid::countStateCells(const std::vector<Cell> &surroundingCells, const t_state state) {
-	size_t	count = 0;
-
-	for (std::vector<Cell>::const_iterator it = surroundingCells.begin();
-		it != surroundingCells.end(); ++it) {
-		count += (it->getState() == state);
-	}
-	return count;
 }

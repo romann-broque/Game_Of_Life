@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 18:29:24 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:03:59 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 #include "UserInputs.hpp"
 #include "Defines.hpp"
+
+#define NEIGHBOOR_COUNT	8
+#define STATE_COUNT		3
 
 typedef enum e_state {
 	ALIVE,
@@ -34,6 +37,8 @@ typedef struct CellParameter {
 	sf::Color		foodColor;
 }	t_cellParameter;
 
+class Grid;
+
 class Cell {
 	public:
 		Cell(const CellParameter &cellConfig);
@@ -43,13 +48,14 @@ class Cell {
 		void setCellStateColor(const t_state state);
 		void setNextState(const t_state newState);
 		void initState(const unsigned char lifeProba);
+		void setNeihborhood(const std::vector<Cell *> &surroundingCells);
 		void toggleState();
 		// Getters
 		t_state getState() const;
 		sf::Color getColor() const;
 		bool canBeDrawn() const;
 		// Action
-		void evolve(const size_t livingCount, const size_t foodCount, const size_t deadCount);
+		void evolve();
 		void refresh();
 
 	private:
@@ -59,14 +65,16 @@ class Cell {
 		t_state 				_state;
 		t_state 				_nextState;
 		size_t					_age;
-		size_t					_livingCount;
-		size_t					_foodCount;
-		size_t					_deadCount;
+		Cell					*_neighboors[8];
+		size_t					_neighboorCount[STATE_COUNT];
 		// Private methods
 		void setCellColor(const sf::Color color);
 		void changeBrightness(const int lightFactor);
+		unsigned char newColorComponentBrightness(const unsigned char color, const int lightFactor);
 		void update();
 		void lifeRoutine();
 		void foodRoutine();
 		void deadRoutine();
+		size_t countStateCells(const t_state state) const;
+		void scanNeighborhood();
 };
