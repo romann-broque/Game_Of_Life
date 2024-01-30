@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/31 00:42:18 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 23:54:11 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void Grid::drawCellIfNotDead(Cell &cell, const size_t x, const size_t y) {
 }
 
 void Grid::drawCell(const size_t x, const size_t y) {
-	const Cell cell = _grid[y][x];
+	const Cell &cell = _grid[y][x];
 	const float posX = x * _params.cellSize + _params.topLeftX;
 	const float posY = y * _params.cellSize + _params.topLeftY;
 	sf::RectangleShape	cellScreen(sf::Vector2f(_params.cellSize, _params.cellSize));
