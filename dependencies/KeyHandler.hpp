@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:27:30 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:33:01 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ class KeyHandler {
 		std::map<sf::Keyboard::Key, FunctionType> _keyBindingMap;
 
 		// Methods
+		void initKeyBindingMap();
+		void initKeysStatus();
 		void executeFunction(const sf::Keyboard::Key &key);
 };
