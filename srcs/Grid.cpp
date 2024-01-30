@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 15:27:09 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:23:46 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void Grid::update() {
 
 void Grid::reset() {
 
-	grid.clear();
+	_grid.clear();
 	resetCellGrid();
 }
 
@@ -40,14 +40,7 @@ void Grid::draw_background() {
 
 void Grid::draw_grid() {
 
-	for (size_t i = 0; i < _params.height; ++i) {
-		for (size_t j = 0; j < _params.width; ++j) {
-			const Cell cell = grid[i][j];
-			if (cell.canBeDrawn()) {
-				drawCell(j, i);
-			}
-		}
-	}
+	forEachCell(*this, &Grid::drawCellIfNotDead);
 }
 
 void Grid::draw() {
@@ -64,16 +57,22 @@ void Grid::toggleCells() {
 		const size_t gridX = (worldPos.x - _params.topLeftX) / _params.cellSize;
 		const size_t gridY = (worldPos.y - _params.topLeftY) / _params.cellSize;
 		if (isInGridScreen(gridX, gridY)) {
-			grid[gridY][gridX].toggleState();
-			drawCell(gridX, gridY);
+			Cell *const cell = &(_grid[gridY][gridX]);
+			cell->toggleState();
+			drawCellIfNotDead(*cell, gridX, gridY);
 		}
 	}
 }
 
 // Private
 
+void Grid::drawCellIfNotDead(Cell &cell, const size_t x, const size_t y) {
+	if (cell.canBeDrawn())
+		drawCell(x, y);
+}
+
 void Grid::drawCell(const size_t x, const size_t y) {
-	const Cell cell = grid[y][x];
+	const Cell cell = _grid[y][x];
 	const float posX = x * _params.cellSize + _params.topLeftX;
 	const float posY = y * _params.cellSize + _params.topLeftY;
 	sf::RectangleShape	cellScreen(sf::Vector2f(_params.cellSize, _params.cellSize));
@@ -103,7 +102,7 @@ std::vector<Cell> Grid::getSurroundingCells(const size_t x, const size_t y) {
 		const int newY = y + it->second;
 		const size_t finalX = (newX + _params.width) % _params.width;
 		const size_t finalY = (newY + _params.height) % _params.height;
-		surroundingCells.push_back(grid[finalY][finalX]);
+		surroundingCells.push_back(_grid[finalY][finalX]);
 	}
 	return surroundingCells;
 }
@@ -119,8 +118,8 @@ void Grid::initCellGrids() {
 			cell.initState(_params.lifeProba);
 			row.push_back(cell);
 		}
-		grid.push_back(row);
-		init_grid.push_back(row);
+		_grid.push_back(row);
+		_init_grid.push_back(row);
 	}
 }
 
@@ -136,22 +135,22 @@ void Grid::initBackground() {
 
 void Grid::preArrange() {
 
-	for (size_t i = 0; i < _params.height; ++i) {
-		for (size_t j = 0; j < _params.width; ++j) {
-			updateCell(grid[i][j], j, i);
-		}
-	}
+	forEachCell(*this, &Grid::updateCell);
 }
 
 void Grid::arrange() {
-	for (size_t i = 0; i < _params.height; ++i) {
-		for (size_t j = 0; j < _params.width; ++j)
-			grid[i][j].refresh();
-	}
+	forEachCell(*this, &Grid::refreshCell);
+}
+
+void Grid::refreshCell(
+	Cell &cell,
+	__attribute__((unused)) const size_t x,
+	__attribute__((unused)) const size_t y) {
+	cell.refresh();
 }
 
 void Grid::resetCellGrid() {
-	grid = init_grid;
+	_grid = _init_grid;
 }
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
