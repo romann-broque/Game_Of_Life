@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:41 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 17:20:36 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 18:05:29 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct GridParameter {
 	sf::Color backgroundColor;
 	sf::Color cellColor;
 	sf::Color foodColor;
+	t_cellParameter cellConfig;
 } t_gridParameter;
 
 class Grid {

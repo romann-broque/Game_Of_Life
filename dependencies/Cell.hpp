@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/29 16:26:41 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 18:29:24 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,23 @@ typedef enum e_state {
 	DEAD
 } t_state;
 
+typedef struct CellParameter {
+	bool			darkening;
+	bool			foodPresence;
+	bool			foodConv;
+	unsigned int	foodProba;
+	unsigned int	cellLifetime;
+	sf::Color		lifeColor;
+	sf::Color		foodColor;
+}	t_cellParameter;
+
 class Cell {
 	public:
-		Cell(const sf::Color &color);
+		Cell(const CellParameter &cellConfig);
 		~Cell();
 		Cell &operator=(const Cell &cell);
 		// Setters
-		void setCellStateColor(const t_state state, const sf::Color color);
+		void setCellStateColor(const t_state state);
 		void setNextState(const t_state newState);
 		void initState(const unsigned char lifeProba);
 		void toggleState();
@@ -44,21 +54,14 @@ class Cell {
 
 	private:
 		// Attributes
-		const bool			_darkening = UserInputs::getParameterVal(DARKENING_NAME);
-		const bool			_foodConv = UserInputs::getParameterVal(FOOD_CONV_NAME);
-		const bool			_foodPresence = UserInputs::getParameterVal(FOOD_NAME);
-		const unsigned int	_foodProba = UserInputs::getParameterVal(FOOD_PROBA_NAME);
-		const unsigned int	_cellLifetime = UserInputs::getParameterVal(CELL_LIFETIME_NAME);
-		sf::Color			_color;
-		sf::Color			_initColor;
-		sf::Color			_lifeColor;
-		sf::Color			_foodColor;
-		t_state 			_state;
-		t_state 			_nextState;
-		size_t				_age;
-		size_t				_livingCount;
-		size_t				_foodCount;
-		size_t				_deadCount;
+		const t_cellParameter	_params;
+		sf::Color				_color;
+		t_state 				_state;
+		t_state 				_nextState;
+		size_t					_age;
+		size_t					_livingCount;
+		size_t					_foodCount;
+		size_t					_deadCount;
 		// Private methods
 		void setCellColor(const sf::Color color);
 		void changeBrightness(const int lightFactor);

@@ -24,8 +24,8 @@ static unsigned char newColorComponentBrightness(const unsigned char color, cons
 
 // Constructor
 
-Cell::Cell(const sf::Color &color):
-	_color(color), _initColor(color), _lifeColor(_color), _foodColor(_color),
+Cell::Cell(const t_cellParameter &params):
+	_params(params), _color(_params.lifeColor),
 	_state(ALIVE), _nextState(ALIVE),
 	_age(0), _livingCount(0), _foodCount(0), _deadCount(0) {
 
@@ -44,14 +44,17 @@ Cell::~Cell() {}
 
 // Setters
 
-void Cell::setCellStateColor(const t_state state, const sf::Color newColor) {
+void Cell::setCellColor(const sf::Color newColor) {
+
+	_color = newColor;
+}
+
+void Cell::setCellStateColor(const t_state state) {
 
 	if (state == ALIVE) {
-		_lifeColor = newColor;
-		_color = newColor;
+		_color = _params.lifeColor;
 	} else if (state == FOOD) {
-		_foodColor = newColor;
-		_color = newColor;
+		_color = _params.foodColor;
 	}
 }
 
@@ -73,7 +76,7 @@ void Cell::initState(const unsigned char lifeProba) {
 	const unsigned int randomNumber = distrib(gen);
 	if (randomNumber <= lifeProba) {
 		_state = ALIVE;
-	} else if (_foodPresence && randomNumber <= lifeProba + _foodProba) {
+	} else if (_params.foodPresence && randomNumber <= lifeProba + _params.foodProba) {
 		_state = FOOD;
 	} else {
 		_state = DEAD;
@@ -91,7 +94,7 @@ void Cell::toggleState() {
 		_state = ALIVE;
 		_nextState = ALIVE;
 		if (_age == 0)
-			setCellColor(_initColor);
+			setCellStateColor(ALIVE);
 	}
 }
 
@@ -128,10 +131,6 @@ void Cell::evolve(const size_t livingCount, const size_t foodCount, const size_t
 
 // Private
 
-void Cell::setCellColor(const sf::Color color) {
-	setCellStateColor(_state, color);
-}
-
 void Cell::changeBrightness(const int lightFactor) {
 
 	sf::Color newColor = _color;
@@ -145,25 +144,25 @@ void Cell::changeBrightness(const int lightFactor) {
 void Cell::update() {
 	if (_state == ALIVE) {
 		if (_age == 0)
-			setCellColor(_initColor);
+			setCellStateColor(ALIVE);
 		++_age;
-		if (_darkening)
+		if (_params.darkening)
 			changeBrightness(DARK_FACTOR);
 	} else if (_state == DEAD) {
 		_age = 0;
 	} else if (_state == FOOD) {
 		_age = 0;
-		setCellColor(_foodColor);
+		setCellStateColor(FOOD);
 	}
 }
 
 void Cell::lifeRoutine() {
-	if (_foodPresence && _foodConv && _age > _cellLifetime) {
-		if (_foodConv)
+	if (_params.foodPresence && _params.foodConv && _age > _params.cellLifetime) {
+		if (_params.foodConv)
 			setNextState(FOOD);
 		else
 			setNextState(DEAD);
-	} else if (_foodPresence && _foodCount > 0)
+	} else if (_params.foodPresence && _foodCount > 0)
 		setNextState(ALIVE);
 	else if (_livingCount < 2 || _livingCount > 3)
 		setNextState(DEAD);
@@ -175,7 +174,7 @@ void Cell::foodRoutine() {
 }
 
 void Cell::deadRoutine() {
-	if (_foodPresence && _foodCount > 5)
+	if (_params.foodPresence && _foodCount > 5)
 		setNextState(FOOD);
 	else if (_livingCount == 3)
 		setNextState(ALIVE);

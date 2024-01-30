@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 17:23:46 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 18:12:21 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,7 @@ void Grid::initCellGrids() {
 	for (size_t i = 0; i < _params.height; ++i) {
 		std::vector<Cell> row;
 		for (size_t j = 0; j < _params.width; ++j) {
-			Cell cell(_params.cellColor);
-			cell.setCellStateColor(FOOD, _params.foodColor);
-			cell.setCellStateColor(ALIVE, _params.cellColor);
+			Cell cell(_params.cellConfig);
 			cell.initState(_params.lifeProba);
 			row.push_back(cell);
 		}
