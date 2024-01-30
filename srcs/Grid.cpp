@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 22:11:50 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/30 22:14:40 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ Grid::Grid(sf::RenderWindow &window, const t_gridParameter &params):
 
 	initBackground();
 	initCellGrids();
+	initNeighboors();
 }
 
 void Grid::update() {
@@ -101,7 +102,6 @@ void Grid::initCellGrids() {
 		_grid.push_back(row);
 		_init_grid.push_back(row);
 	}
-	initNeighboors();
 }
 
 void Grid::initNeighboors() {
@@ -153,6 +153,8 @@ void Grid::refreshCell(
 
 void Grid::resetCellGrid() {
 	_grid = _init_grid;
+	initNeighboors();
+
 }
 
 bool Grid::isInGridScreen(const size_t x, const size_t y) {
