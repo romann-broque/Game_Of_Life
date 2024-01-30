@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:35:28 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 23:42:21 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:42:18 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,15 @@ void Grid::toggleCell(const size_t screenX, const size_t screenY) {
 	const size_t gridY = (screenY - _params.topLeftY) / _params.cellSize;
 	if (isInGridScreen(gridX, gridY)) {
 		Cell *const cell = &(_grid[gridY][gridX]);
-		cell->toggleState();
-		drawCellIfNotDead(*cell, gridX, gridY);
+		if (cell->isToggled() == false) {
+			cell->toggleState();
+			drawCellIfNotDead(*cell, gridX, gridY);
+		}
 	}
+}
+
+void Grid::clearClick() {
+	forEachCell(*this, &Grid::clearCellToggle);
 }
 
 // Private
@@ -82,6 +88,13 @@ void Grid::updateCell(
 	__attribute__((unused)) const size_t y) {
 
 	cell.evolve();
+}
+
+void Grid::clearCellToggle(
+	Cell &cell,
+	__attribute__((unused)) const size_t x,
+	__attribute__((unused)) const size_t y) {
+	cell.clearClick();
 }
 
 void Grid::initCellGrids() {

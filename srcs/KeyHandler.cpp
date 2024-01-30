@@ -12,11 +12,10 @@
 
 #include "KeyHandler.hpp"
 
-bool isClicked = false;
-
 KeyHandler::KeyHandler(sf::RenderWindow &window) : _window(window) {
 	initKeyBindingMap();
 	initKeysStatus();
+	_mouseClick = false;
 }
 
 void KeyHandler::processEvents() {
@@ -29,15 +28,36 @@ void KeyHandler::processEvents() {
 		if (event.type == sf::Event::KeyReleased) {
 			_keys[event.key.code] = false;
 		}
-		if (isClicked == false && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			addMousePos(sf::Mouse::getPosition(_window));
-		} else {
-			isClicked = false;
+		} else if (event.type == sf::Event::MouseButtonReleased) {
+			if (event.mouseButton.button == sf::Mouse::Left) {
+				_mouseClick = true;
+			}
 		}
 		if (event.type == sf::Event::Closed) {
 			_window.close();
 		}
 	}
+}
+
+void KeyHandler::addMousePos(const sf::Vector2i &mousePos) {
+	_mousePos.push_back(mousePos);
+}
+
+void KeyHandler::clearMouse() {
+	_mouseClick = false;
+	_mousePos.clear();
+}
+
+// Getters
+
+bool KeyHandler::isClickOn() const {
+	return _mousePos.size() > 0;
+}
+
+bool KeyHandler::isClickOff() const {
+	return _mouseClick;
 }
 
 bool KeyHandler::isKeyPressed(const sf::Keyboard::Key &key) const {
@@ -48,22 +68,8 @@ bool KeyHandler::isKeyReleased(const sf::Keyboard::Key &key) const {
 	return !_keys[key];
 }
 
-void KeyHandler::addMousePos(const sf::Vector2i &mousePos) {
-	_mousePos.push_back(mousePos);
-}
-
-void KeyHandler::clearMousePos() {
-	_mousePos.clear();
-}
-
-// Getters
-
 std::vector<sf::Vector2i> KeyHandler::getMousePos() {
 	return _mousePos;
-}
-
-bool KeyHandler::isEmptyMousePos() {
-	return _mousePos.size() == 0;
 }
 
 // Private methods

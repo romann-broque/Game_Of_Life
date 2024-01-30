@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 00:28:18 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 23:53:35 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:40:25 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ class KeyHandler {
 	public:
 		KeyHandler(sf::RenderWindow &window);
 		void processEvents();
+		bool isClickOn() const;
+		bool isClickOff() const;
 		bool isKeyPressed(const sf::Keyboard::Key &key) const;
 		bool isKeyReleased(const sf::Keyboard::Key &key) const;
 		void addMousePos(const sf::Vector2i &mousePos);
-		void clearMousePos();
+		void clearMouse();
 		std::vector<sf::Vector2i> getMousePos();
-		bool isEmptyMousePos();
 
 	private:
 		// Attributes
 		sf::RenderWindow &_window;
 		bool _keys[sf::Keyboard::KeyCount];
 		std::map<sf::Keyboard::Key, FunctionType> _keyBindingMap;
+		bool _mouseClick;
 		std::vector<sf::Vector2i> _mousePos;
 
 		// Methods

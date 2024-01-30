@@ -16,7 +16,7 @@
 
 Cell::Cell(const t_cellParameter &params):
 	_params(params), _color(_params.lifeColor),
-	_state(ALIVE), _nextState(ALIVE), _age(0) {}
+	_state(ALIVE), _nextState(ALIVE), _age(0), _isToggled(false) {}
 
 Cell &Cell::operator=(const Cell &cell) {
 	this->_state = cell._state;
@@ -74,6 +74,11 @@ void Cell::toggleState() {
 		if (_age == 0)
 			setCellStateColor(ALIVE);
 	}
+	_isToggled = true;
+}
+
+void Cell::clearClick() {
+	_isToggled = false;
 }
 
 // Getters
@@ -88,6 +93,10 @@ sf::Color Cell::getColor() const {
 
 bool Cell::canBeDrawn() const {
 	return (_state != DEAD);
+}
+
+bool Cell::isToggled() const {
+	return _isToggled;
 }
 
 // Actions

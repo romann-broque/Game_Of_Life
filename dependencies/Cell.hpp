@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:14:59 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 22:11:00 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:43:18 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ class Cell {
 		void setNextState(const t_state newState);
 		void setNeighborhood(const std::vector<Cell *> &surroundingCells);
 		void toggleState();
+		void clearClick();
 		// Getters
 		t_state getState() const;
 		sf::Color getColor() const;
 		bool canBeDrawn() const;
+		bool isToggled() const;
 		// Action
 		void refresh();
 		void evolve();
@@ -65,6 +67,7 @@ class Cell {
 		size_t					_age;
 		Cell					*_neighboors[NEIGHBOOR_COUNT];
 		size_t					_neighboorCount[STATE_COUNT];
+		bool					_isToggled;
 		// Private methods
 		void setCellColor(const sf::Color color);
 		void setCellStateColor(const t_state state);

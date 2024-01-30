@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 23:54:31 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/31 00:41:41 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void Simulation::wait() {
 }
 
 void Simulation::updateState() {
-	if (_handler.isEmptyMousePos() == false) {
+	if (_handler.isClickOn()) {
 		_state = CLICKED;
 	} else if (GameState::isPaused()) {
 		_state = PAUSED;
@@ -116,6 +116,9 @@ void Simulation::clickRoutine() {
 		const sf::Vector2f worldPos = _window.mapPixelToCoords(*it);
 			_grid.toggleCell(worldPos.x, worldPos.y);
 	}
+	if (_handler.isClickOff()) {
+		_grid.clearClick();
+		_handler.clearMouse();
+	}
 	refresh();
-	_handler.clearMousePos();
 }
