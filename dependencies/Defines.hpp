@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:11:54 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/30 23:33:47 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/01/31 14:41:03 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 
 // COLOR //
 
-#define BACKGROUND_COLOR 0x0000ff
-#define BORDER_COLOR	 0x0000ff
-#define CELL_COLOR		 0xffffff
-#define FOOD_COLOR		 0xff0000
+#define BACKGROUND_COLOR 0x0000ffff
+#define BORDER_COLOR	 0xaaaaaaff
+#define CELL_COLOR		 0xffffffff
+#define FOOD_COLOR		 0xff0000ff
 #define DARK_FACTOR		 -5
 #define MIN_COLOR_COMP	10
 #define MAX_COLOR_COMP	256
@@ -76,14 +76,14 @@
 	"Usage: ./Simulation [OPTIONS]\n\n"\
 	"Options:\n\n"\
 	" --" BACKGROUND_COLOR_NAME " =<hexadecimal_value> [default:0000FF]\n\n"\
-	" --" BORDER_COLOR_NAME "     =<hexadecimal_value> [default:0x000FF]\n\n"\
+	" --" BORDER_COLOR_NAME "     =<hexadecimal_value> [default:AAAAAA]\n\n"\
 	" --" BORDER_THICK_NAME "     =<pixels_nb>         [default:1] \n\n" \
 	" --" CELL_COLOR_NAME "       =<hexadecimal_value> [default:FFFFFF]\n\n"\
 	" --" CELL_LIFETIME_NAME "    =<tick_nb>           [default:15]\n\n"\
 	" --" CELL_SIZE_NAME "        =<pixels_nb>         [default:5]\n\n"\
 	" --" DARKENING_NAME "        =<yes|no>            [default:yes]\n\n"\
 	" --" FOOD_NAME "             =<yes|no>            [default:no]\n\n"\
-	" --" FOOD_COLOR_NAME "       =<hexadecimal_value> [default:ff0000]\n\n"\
+	" --" FOOD_COLOR_NAME "       =<hexadecimal_value> [default:FF0000]\n\n"\
 	" --" FOOD_PROBA_NAME "       =<percentage>        [default:10]\n\n"\
 	" --" FOOD_CONV_NAME "        =<yes|no>            [default:no]\n\n"\
 	" --" GRID_WIDTH_NAME "       =<cells_nb>          [default:100]\n\n"\
