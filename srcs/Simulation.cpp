@@ -6,7 +6,7 @@
 /*   By: rbroque <rbroque@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:36:47 by rbroque           #+#    #+#             */
-/*   Updated: 2024/01/31 00:41:41 by rbroque          ###   ########.fr       */
+/*   Updated: 2024/02/02 11:02:56 by rbroque          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ Simulation::Simulation():
 	_grid(_window, initParameters()) {
 
 	sf::View view(_window.getDefaultView());
-	view.setCenter(sf::Vector2f(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f));
+	view.setCenter(sf::Vector2f(
+		UserInputs::getParameterVal(WINDOW_WIDTH_NAME) / 2.f,
+		UserInputs::getParameterVal(WINDOW_HEIGHT_NAME) / 2.f));
 	_window.setView(view);
 }
 
